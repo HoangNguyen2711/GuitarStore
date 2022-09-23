@@ -83,7 +83,7 @@
                     <div class="row">
                         @foreach ($roles as $groupName => $role)
                             <div class="col-5">
-                                <h4>{{ $groupName }}</h4>
+                                {{-- <h4>{{ $groupName }}</h4> --}}
 
                                 <div>
                                     @foreach ($role as $item)

@@ -27,7 +27,7 @@
                         <form action="{{ route('roles.destroy', $role->id) }}" method="post">
                         @csrf
                         @method('delete')
-                        <button href="" class="btn btn-danger">Delete</Button>  
+                        <button href="" class="btn btn-danger" data-id={{ $role->id }}>Delete</Button>  
                         </form>
                         
                     </td>
