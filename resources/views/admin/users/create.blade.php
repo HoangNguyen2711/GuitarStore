@@ -5,7 +5,7 @@
     <div class="card">
         <h1>Create User</h1>
         <div>
-            <form action="{{ route('users.store') }}" method="post">
+            <form action="{{ route('users.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row">

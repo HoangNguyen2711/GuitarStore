@@ -13,6 +13,7 @@
         <table class="table table-hover">
             <tr>
                 <th>No</th>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
@@ -20,6 +21,7 @@
             @foreach ($users as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
+                    <td><img src="{{ $item->images->count() > 0 ? asset('upload/users/' . $item->images->first()->url) : 'upload/users/defaultavt.png' }}" width="100px" height="100px" alt=""></td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->email }}</td>
                     <td>{{ $item->phone }}</td>
@@ -28,7 +30,7 @@
                         <form action="{{ route('users.destroy', $item->id) }}" method="post">
                         @csrf
                         @method('delete')
-                        <button href="" class="btn btn-danger">Delete</Button>  
+                        <button href="" class="btn btn-danger" type="submit" data-id={{ $item->id }}>Delete</Button>  
                         </form>
                         
                     </td>

@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Roles\UpdateRoleRequest;
+use App\Http\Requests\Users\CreateUserRequest;
+use App\Http\Requests\Users\UpdateUserRequest;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -48,9 +52,16 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        //
+        $dataCreate = $request->all();
+        $dataCreate['password'] = Hash::make($request->password);
+        $dataCreate['image'] = $this->user->saveImage($request);
+        $user = $this->user->create($dataCreate);
+        $user->images()->create(['url' => $dataCreate['image']]);
+        $user->roles()->attach($dataCreate['role_ids']);
+
+        return to_route('users.index')->with(['message' => 'Created successfully!']);
     }
 
     /**
@@ -72,7 +83,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user =  $this->user->findOrFail($id)->load('roles');
+        $roles = $this->role->all()->groupBy('group');
+
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -82,10 +96,25 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        //
+        $dataUpdate = $request->except('password');
+        $user =  $this->user->findOrFail($id)->load('roles');
+
+        if($request->password)
+        {
+            $dataCreate['password'] = Hash::make($request->password);
+        }
+        $currentImage =  $user->images ? $user->images->first()->url : '';
+        $dataUpdate['image'] = $this->user->updateImage($request, $currentImage);
+
+        $user->update($dataUpdate);
+        $user->images()->delete();
+        $user->images()->create(['url' => $dataUpdate['image']]);
+        $user->roles()->sync($dataUpdate['role_ids'] ?? []);
+        return to_route('users.index')->with(['message' => 'Update success']);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -95,6 +124,13 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user =  $this->user->findOrFail($id)->load('roles');
+        $user->images()->delete();
+        $imageName =  $user->images->count() > 0 ? $user->images->first()->url : '';
+        $this->user->deleteImage($imageName);
+        $user->delete();
+
+        return redirect()->route('users.index')->with(['message' => 'Deleted!']);
+
     }
 }
