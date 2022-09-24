@@ -27,12 +27,12 @@
                     <td>{{ $item->phone }}</td>
                     <td>
                         <a href="{{ route('users.edit', $item->id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('users.destroy', $item->id) }}" method="post">
+                        <form action="{{ route('users.destroy', $item->id) }}" id="form-delete{{ $item->id }}" method="post">
                         @csrf
                         @method('delete')
-                        <button href="" class="btn btn-danger" type="submit" data-id={{ $item->id }}>Delete</Button>  
-                        </form>
                         
+                        </form>
+                        <button class="btn btn-delete btn-danger" data-id={{ $item->id }}>Delete</button> 
                     </td>
                 </tr>
             @endforeach
@@ -45,3 +45,4 @@
 </div>
 
 @endsection
+

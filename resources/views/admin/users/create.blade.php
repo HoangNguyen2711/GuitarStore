@@ -11,15 +11,13 @@
                 <div class="row">
                     <div class="input-group-static col-5 mb-4">
                         <label>Image</label>
-                        <input type="file" accept="image/*" name="image" id="image-input" class="form-control">
+                        <input type="file"  accept="image/*" name="image" id="image-input" class="form-control" />
 
-                    @error('image')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
+                        @error('image')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
-                    <div class="col-5">
-                        <img src="" id="show-image" alt="">
-                    </div>
+                    <div class="col-5 gallery"></div>
                 </div>
 
                 <div class="input-group input-group-static mb-4">
@@ -49,11 +47,11 @@
                 <div class="input-group input-group-static mb-4">
                     <label class="ms-0">Gender</label>
                     <select name="gender" class="form-control">
-                      <option value="male">Male</option>
-                      <option value="fe-male">FeMale</option>
+                        <option value="male">Male</option>
+                        <option value="fe-male">FeMale</option>
                     </select>
                     @error('group')
-                    <span class="text-danger">{{ $message }}</span>
+                        <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
 
@@ -67,31 +65,31 @@
 
                 <div class="input-group input-group-static mb-4">
                     <label class="form-label">Password</label>
-                    <input type="password"  name="password" class="form-control">
+                    <input type="password" name="password" class="form-control">
                     @error('password')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
 
-                <div class = "form-group">
+                <div class="form-group">
                     <label for="">Roles</label>
                     <div class="row">
                         @foreach ($roles as $groupName => $role)
-                        <div class="col-5">
-                            {{-- <h4>{{ $groupName }}</h4> --}}
+                            <div class="col-5">
+                                {{-- <h4>{{ $groupName }}</h4> --}}
 
-                            <div>
-                                @foreach ($role as $item)
-                                    <div class="form-check">
-                                        <input class="form-check-input" name="role_ids[]" type="checkbox"
-                                            value="{{ $item->id }}">
-                                        <label class="custom-control-label"
-                                            for="customCheck1">{{ $item->display_name }}</label>
-                                    </div>
-                                @endforeach
+                                <div>
+                                    @foreach ($role as $item)
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="role_ids[]" type="checkbox"
+                                                value="{{ $item->id }}">
+                                            <label class="custom-control-label"
+                                                for="customCheck1">{{ $item->display_name }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
 
                     </div>
                 </div>
@@ -100,30 +98,34 @@
         </div>
     </div>
 
-@endsection
-
-@section('script')
-
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
     <script>
-        $(() => {
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#show-image').attr('src', e.target.result);
-                    };
-                    reader.readAsDataURL(input.files[0]);
+        $(document).ready(function() {
+            // Multiple images preview in browser
+            var imagesPreview = function(input, placeToInsertImagePreview) {
+                if (input.files) {
+                    var filesAmount = input.files.length;
+                    for (i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
+                        var fileName = input.files[i].name;
+                        var fileExtension = fileName.split('.').pop().toLowerCase();
+                        reader.onload = function(event) {
+                            console.log(event.target.result);
+                            $($.parseHTML('<img class="img-thumbnail mr-1 mb-1">')).attr('src', event.target
+                                .result).appendTo(placeToInsertImagePreview);
+                        }
+                        reader.readAsDataURL(input.files[i]);
+                    }
                 }
-            }
 
-            $("#image-input").change(function() {
-                readURL(this);
+            };
+
+            $(document).on('change', '#image-input', function() {
+                console.log(1);
+                $('.gallery').empty();
+                imagesPreview(this, $('.gallery'));
             });
-
-
-
         });
     </script>
 @endsection
