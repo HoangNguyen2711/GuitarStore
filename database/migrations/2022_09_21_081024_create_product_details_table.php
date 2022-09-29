@@ -22,7 +22,6 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->string('size');
-            $table->string('color');
             $table->smallInteger('quantity');
             $table->timestamps();
         });

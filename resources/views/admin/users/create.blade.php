@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="input-group-static col-5 mb-4">
                         <label>Image</label>
-                        <input type="file"  accept="image/*" name="image" id="image-input" class="form-control" />
+                        <input type="file" accept="image/*" name="image" id="image-input" class="form-control" />
 
                         @error('image')
                             <span class="text-danger">{{ $message }}</span>

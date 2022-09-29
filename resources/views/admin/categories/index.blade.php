@@ -9,7 +9,7 @@
 
 
         <h1>
-            Categories list
+            Category list
         </h1>
         <div>
             <a href="{{ route('categories.create') }}" class="btn btn-primary">Create</a>
@@ -33,8 +33,8 @@
                         <td>
                             <a href="{{ route('categories.edit', $item->id) }}" class="btn btn-warning">Edit</a>
 
-                            <form action="{{ route('categories.destroy', $item->id) }}"
-                                id="form-delete{{ $item->id }}" method="post">
+                            <form action="{{ route('categories.destroy', $item->id) }}" id="form-delete{{ $item->id }}"
+                                method="post">
                                 @csrf
                                 @method('delete')
 
@@ -52,4 +52,3 @@
     </div>
 
 @endsection
-

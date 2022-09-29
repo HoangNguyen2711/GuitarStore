@@ -112,7 +112,7 @@ class UserController extends Controller
         $user->images()->delete();
         $user->images()->create(['url' => $dataUpdate['image']]);
         $user->roles()->sync($dataUpdate['role_ids'] ?? []);
-        return to_route('users.index')->with(['message' => 'Update success']);
+        return to_route('users.index')->with(['message' => 'Updated successessfully!']);
     }
 
 
