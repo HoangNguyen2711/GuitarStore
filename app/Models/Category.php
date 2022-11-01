@@ -30,6 +30,6 @@ class Category extends Model
 
     public function getParents()
     {
-        return Category::whereNull('parent_id')->get(['id', 'name']);
+        return Category::whereNull('parent_id')->with('children')->get(['id', 'name']);
     }
 }

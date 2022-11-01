@@ -24,7 +24,7 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'nullable|image|mimes:png,jpg,PNG,jpec',
+            'image' => 'nullable|image|mimes:png,jpg,PNG,jpec,webp',
             'name'=>'required',
             'description'=>'required',
             'sale'=>'required',
