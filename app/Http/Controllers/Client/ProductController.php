@@ -21,11 +21,13 @@ class ProductController extends Controller
         $this->product = $product;
     }
 
-    public function index($category_id)
+    public function index(Request $request,$category_id)
     {
-        // $products = $this->product->getBy($request, $categoryId);
-        return view('client.products.index');
+        $products =  $this->product->getBy($request->all(), $category_id);
+
+        return view('client.products.index', compact('products'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -56,8 +58,11 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = $this->product->with('details')->findOrFail($id);
+
+        return view('client.products.detail', compact('product'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

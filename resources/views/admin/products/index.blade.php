@@ -12,10 +12,6 @@
             Products list
         </h1>
         <div>
-            <a href="{{ route('products.create') }}" class="btn btn-primary">Create</a>
-
-        </div>
-        <div>
             <table class="table table-hover">
                 <tr>
                     <th>#</th>
@@ -53,6 +49,10 @@
                     </tr>
                 @endforeach
             </table>
+            <div>
+                <a href="{{ route('products.create') }}" class="btn btn-primary">Create</a>
+
+            </div>
             {{ $products->links() }}
         </div>
 

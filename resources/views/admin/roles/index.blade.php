@@ -35,10 +35,10 @@
                     </tr>
                 @endforeach
             </table>
-            {{ $roles->links() }}
             <div>
                 <a href="{{ route('roles.create') }}" class="btn btn-primary">Create</a>
             </div>
+            {{ $roles->links() }}
         </div>
     </div>
 

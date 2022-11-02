@@ -39,10 +39,10 @@
                     </tr>
                 @endforeach
             </table>
-            {{ $users->links() }}
             <div>
                 <a href="{{ route('users.create') }}" class="btn btn-primary">Create</a>
             </div>
+            {{ $users->links() }}
         </div>
     </div>
 

@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title', 'Category')
+@section('title', 'Coupons')
 @section('content')
     <div class="card">
 
@@ -9,27 +9,31 @@
 
 
         <h1>
-            Category list
+            Coupon list
         </h1>
+
         <div>
             <table class="table table-hover">
                 <tr>
                     <th>No</th>
                     <th>Name</th>
-                    <th>Parent Name</th>
+                    <th>Type</th>
+                    <th>Value</th>
+                    <th>Expery date</th>
                     <th>Action</th>
                 </tr>
 
-                @foreach ($categories as $item)
+                @foreach ($coupons as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->name }}</td>
-
-                        <td>{{ $item->parent_name }}</td>
+                        <td>{{ $item->type }}</td>
+                        <td>{{ $item->vale }}</td>
+                        <td>{{ $item->expery_date }}</td>
                         <td>
-                            <a href="{{ route('categories.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                            <a href="{{ route('coupons.edit', $item->id) }}" class="btn btn-warning">Edit</a>
 
-                            <form action="{{ route('categories.destroy', $item->id) }}" id="form-delete{{ $item->id }}"
+                            <form action="{{ route('coupons.destroy', $item->id) }}" id="form-delete{{ $item->id }}"
                                 method="post">
                                 @csrf
                                 @method('delete')
@@ -43,10 +47,10 @@
                 @endforeach
             </table>
             <div>
-                <a href="{{ route('categories.create') }}" class="btn btn-primary">Create</a>
+                <a href="{{ route('coupons.create') }}" class="btn btn-primary">Create</a>
     
             </div>
-            {{ $categories->links() }}
+            {{ $coupons->links() }}
         </div>
 
     </div>

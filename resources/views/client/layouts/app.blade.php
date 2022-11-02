@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>@yield('title', 'GuitarStore')</title>
+    <title>@yield('title', 'Shop')</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -27,16 +27,17 @@
 </head>
 
 <body>
+
     <!-- Topbar Start -->
     <div class="container-fluid">
         <div class="row bg-secondary py-2 px-xl-5">
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="d-inline-flex align-items-center">
-                    <a class="text-dark" href="">FAQs</a>
+                    {{-- <a class="text-dark" href="">FAQs</a>
                     <span class="text-muted px-2">|</span>
                     <a class="text-dark" href="">Help</a>
                     <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">Support</a>
+                    <a class="text-dark" href="">Support</a> --}}
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
@@ -63,7 +64,7 @@
             <div class="col-lg-3 d-none d-lg-block">
                 <a href="" class="text-decoration-none">
                     <h1 class="m-0 display-5 font-weight-semi-bold"><span
-                            class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                            class="text-primary font-weight-bold border px-3 mr-1">Guitar</span>Store</h1>
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
@@ -106,22 +107,27 @@
                 <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
                     id="navbar-vertical">
                     <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-                        @foreach ($categories as $item)
-                        @if ($item->children->count() > 0)
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link" data-toggle="dropdown">{{ $item->name }} <i
-                                    class="fa fa-angle-down float-right mt-1"></i></a>
-                            <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                                @foreach ($item->children as $childCategory)
-                                <a href="" class="dropdown-item">{{ $childCategory->name }}</a>    
-                                @endforeach
 
-                            </div>
-                        </div>
-                        @else
-                        <a href="" class="dropdown-item">{{ $item->name }}</a> 
-                        @endif
+                        @foreach ($categories as $item)
+                            @if ($item->children->count() > 0)
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link" data-toggle="dropdown">{{ $item->name }} <i
+                                            class="fa fa-angle-down float-right mt-1"></i></a>
+                                    <div
+                                        class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
+
+                                        @foreach ($item->children as $childCategory)
+                                            <a href="{{ route('client.products.index', ['category_id' => $childCategory->id]) }}"
+                                                class="dropdown-item">{{ $childCategory->name }}</a>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @else
+                                <a href="{{ route('client.products.index', ['category_id' => $item->id]) }}"
+                                    class="dropdown-item">{{ $item->name }}</a>
+                            @endif
                         @endforeach
+
                     </div>
                 </nav>
             </div>
@@ -131,15 +137,13 @@
                         <h1 class="m-0 display-5 font-weight-semi-bold"><span
                                 class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
                     </a>
-                    <button type="button" class="navbar-toggler" data-toggle="collapse"
-                        data-target="#navbarCollapse">
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="/" class="nav-item nav-link active">Home</a>
-                            <a href="./shop" class="nav-item nav-link">Shop</a>
-                            <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
+                            <a href="{{ route('client.home') }}" class="nav-item nav-link active">Home</a>
+
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu rounded-0 m-0">
@@ -195,130 +199,23 @@
         </div>
     </div>
     <!-- Navbar End -->
-    <!-- Featured Start -->
-    <div class="container-fluid pt-5">
-        <div class="row px-xl-5 pb-3">
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
-                    <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
-                    <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
-                    <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
-                    <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
-                    <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-        <!-- Featured End -->
-    
-        <!-- Categories Start -->
-    <div class="container-fluid pt-5">
-        <div class="row px-xl-5 pb-3">
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="{{ asset('client/img/cat-1.jpg') }}" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Men's dresses</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="{{ asset('client/img/cat-2.jpg') }}" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Women's dresses</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="{{ asset('client/img/cat-3.jpg') }}" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Baby's dresses</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="{{ asset('client/img/cat-4.jpg') }}" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Accerssories</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="{{ asset('client/img/cat-5.jpg') }}" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Bags</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="{{ asset('client/img/cat-6.jpg') }}" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Shoes</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-        <!-- Categories End -->
-    
 
 
 
-    <!-- Offer Start -->
-    <div class="container-fluid offer pt-5">
-        <div class="row px-xl-5">
-            <div class="col-md-6 pb-4">
-                <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5">
-                    <img src="{{ asset('client/img/offer-1.png') }}" alt="">
-                    <div class="position-relative" style="z-index: 1;">
-                        <h5 class="text-uppercase text-primary mb-3">20% off the all order</h5>
-                        <h1 class="mb-4 font-weight-semi-bold">Spring Collection</h1>
-                        <a href="" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 pb-4">
-                <div class="position-relative bg-secondary text-center text-md-left text-white mb-2 py-5 px-5">
-                    <img src="{{ asset('client/img/offer-2.png') }}" alt="">
-                    <div class="position-relative" style="z-index: 1;">
-                        <h5 class="text-uppercase text-primary mb-3">20% off the all order</h5>
-                        <h1 class="mb-4 font-weight-semi-bold">Winter Collection</h1>
-                        <a href="" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Offer End -->
+    <!-- Featured End -->
 
-    
+
+    <!-- Categories Start -->
+
+    <!-- Categories End -->
+
     @yield('content')
+    <!-- Subscribe Start -->
+
+
+    <!-- Vendor Start -->
+
+    <!-- Vendor End -->
 
 
     <!-- Footer Start -->
@@ -337,7 +234,7 @@
     <script src="{{ asset('client/lib/owlcarousel/owl.carousel.min.js') }}"></script>
 
     <!-- Contact Javascript File -->
-    <script src="{{ asset('client/mail/jqBootstrapValidation.min.js') }}"></script>
+    <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="{{ asset('client/mail/contact.js') }}"></script>
 
     <!-- Template Javascript -->
