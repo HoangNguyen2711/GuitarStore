@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div>
-                    <p>Size</p>
+                    <p>Color</p>
                     @if ($product->details->count() > 0)
                         @foreach ($product->details as $detail)
                             <p>Size: {{ $detail->size }} - quantity: {{ $detail->quantity }}</p>

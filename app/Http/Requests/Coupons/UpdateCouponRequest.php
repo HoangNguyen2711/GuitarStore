@@ -24,7 +24,7 @@ class UpdateCouponRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:coupons,name',
+            'name' => 'required',
             'type' => 'required',
             'vale' => 'required|numeric',
             'expery_date' => 'required|date'

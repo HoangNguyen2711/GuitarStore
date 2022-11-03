@@ -64,7 +64,7 @@
                 <input type="hidden" id="inputSize" name='sizes'>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddSizeModal">
-                    Add size
+                    Add S
                 </button>
 
                 <!-- Modal -->

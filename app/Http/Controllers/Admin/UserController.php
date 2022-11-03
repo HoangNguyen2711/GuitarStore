@@ -57,12 +57,13 @@ class UserController extends Controller
         $dataCreate = $request->all();
         $dataCreate['password'] = Hash::make($request->password);
         $dataCreate['image'] = $this->user->saveImage($request);
-        $user = $this->user->create($dataCreate);
+
+        $user =  $this->user->create($dataCreate);
         $user->images()->create(['url' => $dataCreate['image']]);
         $user->roles()->attach($dataCreate['role_ids']);
-
-        return to_route('users.index')->with(['message' => 'Created successfully!']);
+        return to_route('users.index')->with(['message' => 'Created user successfully!']);
     }
+
 
     /**
      * Display the specified resource.
