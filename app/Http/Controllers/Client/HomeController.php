@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -30,5 +31,21 @@ class HomeController extends Controller
         $products =  $this->product->latest('id')->paginate(10);
 
         return view('client.home.index', compact('products'));
+    }
+
+    public function shop()
+    {
+        $products =  $this->product->latest('id')->paginate(8);
+
+        return view('client.home.shop', compact('products'));
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->keywords_sumit;
+
+        $search = $this->product->where('name', 'LIKE', "%{$keyword}%")->get();
+
+        return view('client.products.search', compact('search'));
     }
 }

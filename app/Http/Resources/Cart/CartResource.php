@@ -20,5 +20,5 @@ class CartResource extends JsonResource
             'total_price' => $this->total_price
         ];
     }
-}
 
+}

@@ -170,7 +170,7 @@ class CartController extends Controller
 
         if($coupon)
         {
-            $message = 'Apply Coupon Sucess!';
+            $message = 'Apply coupon sucessfully!';
             Session::put('coupon_id', $coupon->id);
             Session::put('discount_amount_price', $coupon->value);
             Session::put('coupon_code' , $coupon->name);
@@ -186,12 +186,12 @@ class CartController extends Controller
         ]);
     }
 
-    // public function checkout()
-    // {
-    //     $cart = $this->cart->firtOrCreateBy(auth()->user()->id)->load('products');
+    public function checkout()
+    {
+        $cart = $this->cart->firtOrCreateBy(auth()->user()->id)->load('products');
 
-    //     return view('client.carts.checkout', compact('cart'));
-    // }
+        return view('client.carts.checkout', compact('cart'));
+    }
 
     // public function processCheckout(CreateOrderRequest $request)
     // {

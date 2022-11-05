@@ -61,7 +61,7 @@
                             @endforeach
                         </form>
                     @else
-                        <p>Hết hàng</p>
+                        <p>Sold out</p>
                     @endif
 
                 </div>
@@ -84,9 +84,9 @@
                     <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
                 </div>
                 <div class="d-flex pt-2">
-                    <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
+                    {{-- <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p> --}}
                     <div class="d-inline-flex">
-                        <a class="text-dark px-2" href="">
+                        {{-- <a class="text-dark px-2" href="">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a class="text-dark px-2" href="">
@@ -97,7 +97,7 @@
                         </a>
                         <a class="text-dark px-2" href="">
                             <i class="fab fa-pinterest"></i>
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </div>
