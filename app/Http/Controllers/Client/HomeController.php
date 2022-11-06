@@ -42,9 +42,9 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
-        $keyword = $request->keywords_sumit;
-
-        $search = $this->product->where('name', 'LIKE', "%{$keyword}%")->get();
+        $keyword = $request->keywords_submit;
+      
+        $search = $this->product->where('name', 'like', '%'.$keyword.'%')->get();
 
         return view('client.products.search', compact('search'));
     }
