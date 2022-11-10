@@ -24,7 +24,7 @@
                     <div class="carousel-inner border">
                         <div class="carousel-item active">
                             <img class="w-100 h-100"
-                                src="{{ $product->images->count() > 0 ? asset('upload/' . $product->images->first()->url) : 'upload/default.png' }}"
+                                src="{{ $product->image_path}}"
                                 alt="Image">
                         </div>
 
@@ -43,7 +43,11 @@
                 <div class="d-flex mb-3">
 
                 </div>
-                <h3 class="font-weight-semi-bold mb-4">${{ $product->price }}</h3>
+                <h3 class="font-weight-semi-bold mb-4">@if ($product->sale > 0)
+                    ${{ $product->price - ($product->price * ($product->sale)/100) }} <del>${{ $product->price }}</del>
+                    @else
+                    ${{ $product->price }}
+                    @endif</h3>
 
 
                 <div class="d-flex mb-4">

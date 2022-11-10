@@ -17,8 +17,11 @@
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3">{{ $item->name }}</h6>
                         <div class="d-flex justify-content-center">
-                            <h6>${{ $item->price }}</h6>
-                            {{-- <h6 class="text-muted ml-2"><del>{{ $item->price }}</del></h6> --}}
+                            @if ($item->sale > 0)
+                            <h6>${{ $item->price - ($item->price * ($item->sale)/100) }}</h6><h6 class="text-muted ml-2"><del>${{ $item->price }}</del></h6>
+                            @else
+                            <h6>${{ $item->price }}</h6>   
+                            @endif
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">

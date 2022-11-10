@@ -52,4 +52,8 @@ class User extends Authenticatable
         return $this->morphMany(Image::class, 'imageable');
     }
 
+    public function getImagePathAttribute()
+    {
+        return asset($this->images->count() > 0 ? 'upload/' . $this->images->first()->url : 'upload/defaultavt.png' );
+    }
 }

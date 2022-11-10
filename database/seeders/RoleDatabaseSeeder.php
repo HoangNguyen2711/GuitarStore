@@ -34,6 +34,7 @@ class RoleDatabaseSeeder extends Seeder
         if(!$superAdmin)
         {
             $superAdmin = User::factory()->create(['email' => 'admin@gmail.com']);
+        
         }
         $superAdmin->assignRole('super-admin');
 

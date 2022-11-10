@@ -14,7 +14,7 @@
         <div>
             <table class="table table-hover">
                 <tr>
-                    <th>#</th>
+                    <th>No</th>
                     <th>Image</th>
                     <th>Name</th>
                     <th>Price</th>
@@ -25,8 +25,7 @@
                 @foreach ($products as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
-                        <td><img src="{{ $item->images->count() > 0 ? asset('upload/' . $item->images->first()->url) : 'upload/default.png' }}"
-                                width="200px" height="200px" alt=""></td>
+                        <td><img src="{{ $item->image_path }}" width="200px" height="200px" alt=""></td>
                         <td>{{ $item->name }}</td>
 
                         <td>{{ $item->price }}</td>

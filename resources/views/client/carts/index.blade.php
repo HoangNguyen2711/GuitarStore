@@ -25,7 +25,7 @@
                                 {{ $item->product->name }}</td>
                             <td class="align-middle">
                                 <p
-                                    style="{{ $item->product->sale ? 'text-decoration: line-through' : '' }};                                                                                                                                                                                                                                                 ">
+                                    style="{{ $item->product->sale ? 'text-decoration: line-through' : '' }};">
                                     ${{ $item->product->price }}
                                 </p>
 

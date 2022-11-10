@@ -135,8 +135,16 @@
                             <a href="{{ route('client.home') }}" class="nav-item nav-link active">Home</a>
                             <a href="{{ route('client.shop') }}" class="nav-item nav-link ">Shop</a>
                             <a href="{{ route('client.orders.index') }}" class="nav-link">Order</a>
-
+                            @can('list-order')
+                            <a href="{{ route('dashboard') }}" class=" nav-link"> Management</a>
+                            @endcan
                         </div>
+                        @if (auth()->check())
+                        <div class="navbar-nav mr-auto py-0">
+                            <h5>Hi! {{ auth()->user()->name }}</h5>
+                        </div>
+                        @else
+                        @endif
                         <div class="navbar-nav ml-auto py-0">
                             @if (auth()->check())
                                 <a class="dropdown-item" href="{{ route('logout') }}"
@@ -144,7 +152,6 @@
                                                  document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
-
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                     class="d-none">
                                     @csrf
