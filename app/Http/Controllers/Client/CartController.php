@@ -199,7 +199,7 @@ class CartController extends Controller
 
         $dataCreate = $request->all();
         $dataCreate['user_id'] = auth()->user()->id;
-        $dataCreate['status'] = 'pending';
+        $dataCreate['status'] = 'Pending';
         $this->order->create($dataCreate);
         $couponID = Session::get('coupon_id');
         if($couponID)

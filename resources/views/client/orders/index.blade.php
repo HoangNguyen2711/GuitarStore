@@ -37,7 +37,7 @@
                              <td>{{ $item->payment }}</td>
                              <td>{{ $item->status }}</td>
                              <td>
-                                 @if ($item->status == 'pending')
+                                 @if ($item->status == 'Pending')
                                      <form action="{{ route('client.orders.cancel', $item->id) }}"
                                          id="form-cancel{{ $item->id }}" method="post">
                                          @csrf
