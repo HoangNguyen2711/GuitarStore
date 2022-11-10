@@ -3,6 +3,11 @@
     "type": "project",
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
+    "post-install-cmd": [
+        "php artisan clear-compiled",
+        "chmod -R 777 public/"
+    ],
+
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
@@ -17,6 +22,7 @@
         "spatie/laravel-permission": "^5.5",
         "spatie/laravel-searchable": "^1.11"
     },
+    
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
@@ -65,4 +71,8 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true
+
+    
+
 }
+
