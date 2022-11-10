@@ -28,6 +28,7 @@
 </head>
 
 <body>
+    <x-guest-layout>
 
     <!-- Topbar Start -->
     <div class="container-fluid">
@@ -61,7 +62,8 @@
                 <form action="{{ route('client.search') }}" method="POST">
                     @csrf
                     <div class="input-group">
-                        <input type="text" name="keywords_submit" class="form-control" placeholder="Search for products">
+                        <input type="text" name="keywords_submit" class="form-control"
+                            placeholder="Search for products">
                         <div class="input-group-append">
                             <span class="input-group-text bg-transparent text-primary">
                                 <i class="fa fa-search" type="submit"></i>
@@ -71,10 +73,7 @@
                 </form>
             </div>
             <div class="col-lg-3 col-6 text-right">
-                <a href="" class="btn border">
-                    <i class="fas fa-heart text-primary"></i>
-                    <span class="badge">0</span>
-                </a>
+
                 <a href="{{ route('client.carts.index') }}" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
                     <span class="badge" id="productCountCart">{{ $countProductInCart }}</span>
@@ -126,7 +125,7 @@
                 <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
                     <a href="" class="text-decoration-none d-block d-lg-none">
                         <h1 class="m-0 display-5 font-weight-semi-bold"><span
-                                class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                                class="text-primary font-weight-bold border px-3 mr-1">Guitar</span>Store</h1>
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
@@ -140,7 +139,8 @@
                         </div>
                         <div class="navbar-nav ml-auto py-0">
                             @if (auth()->check())
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
@@ -151,7 +151,7 @@
                                 </form>
                             @else
                                 <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
-                                <a href="{{ route('login') }}" class="nav-item nav-link">Register</a>
+                                <a href="{{ route('register') }}" class="nav-item nav-link">Register</a>
                             @endif
 
 
@@ -159,21 +159,21 @@
                         </div>
                     </div>
                 </nav>
-                
+
                 @yield('content')
             </div>
         </div>
     </div>
     <!-- Navbar End -->
 
-  
+
 
     <!-- Footer Start -->
     @include('client.layouts.footer')
     <!-- Footer End -->
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    {{-- <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a> --}}
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -199,9 +199,33 @@
         });
     </script>
     <script src="{{ asset('admin/assets/base/base.js') }}"></script>
+    
+    <script>
+        !(function() {
+            let e = document.createElement("script"),
+                t = document.head || document.getElementsByTagName("head")[0];
+            (e.src =
+                "https://cdn.jsdelivr.net/npm/rasa-webchat@1.x.x/lib/index.js"),
+            // Replace 1.x.x with the version that you want
+            (e.async = !0),
+            (e.onload = () => {
+                window.WebChat.default({
+                        customData: {
+                            language: "en",
+                            text: "Hello"
+                        },
+                        socketUrl: "http://localhost:5005",
+                        // add other props here
+                    },
+                    null
+                );
+            }),
+            t.insertBefore(e, t.firstChild);
+        })();
+    </script>
 
     @yield('script')
-    
+</x-guest-layout>
 </body>
 
 </html>

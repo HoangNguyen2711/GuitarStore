@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Orders\CreateOrderRequest;
 use App\Http\Resources\Cart\CartResource;
 use Illuminate\Http\Request;
 use App\Models\Cart;
@@ -172,7 +173,7 @@ class CartController extends Controller
         {
             $message = 'Apply coupon sucessfully!';
             Session::put('coupon_id', $coupon->id);
-            Session::put('discount_amount_price', $coupon->value);
+            Session::put('discount_amount_price', $coupon->vale);
             Session::put('coupon_code' , $coupon->name);
 
         }else{
@@ -193,27 +194,28 @@ class CartController extends Controller
         return view('client.carts.checkout', compact('cart'));
     }
 
-    // public function processCheckout(CreateOrderRequest $request)
-    // {
+    public function processCheckout(CreateOrderRequest $request)
+    {
 
-    //     $dataCreate = $request->all();
-    //     $dataCreate['user_id'] = auth()->user()->id;
-    //     $dataCreate['status'] = 'pending';
-    //     $this->order->create($dataCreate);
-    //     $couponID = Session::get('coupon_id');
-    //     if($couponID)
-    //     {
-    //         $coupon =  $this->coupon->find(Session::get('coupon_id'));
-    //         if($coupon)
-    //         {
-    //             $coupon->users()->attach(auth()->user()->id, ['value' => $coupon->value]);
-    //         }
-    //     }
-    //     $cart = $this->cart->firtOrCreateBy(auth()->user()->id);
-    //     $cart->products()->delete();
-    //     Session::forget(['coupon_id', 'discount_amount_price', 'coupon_code']);
-
-    // }
+        $dataCreate = $request->all();
+        $dataCreate['user_id'] = auth()->user()->id;
+        $dataCreate['status'] = 'pending';
+        $this->order->create($dataCreate);
+        $couponID = Session::get('coupon_id');
+        if($couponID)
+        {
+            $coupon =  $this->coupon->find(Session::get('coupon_id'));
+            if($coupon)
+            {
+                $coupon->users()->attach(auth()->user()->id, ['value' => $coupon->vale]);
+            }
+        }
+        $cart = $this->cart->firtOrCreateBy(auth()->user()->id);
+        $cart->products()->delete();
+        Session::forget(['coupon_id', 'discount_amount_price', 'coupon_code']);
+        $orders =  $this->order->getWithPaginateBy(auth()->user()->id);
+        return view('client.orders.index', compact('orders'));
+    }
 
 
 }

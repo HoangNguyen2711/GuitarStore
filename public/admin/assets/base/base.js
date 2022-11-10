@@ -18,6 +18,13 @@ function confirmDelete() {
     });
 }
 
+$.ajaxSetup({
+    headers: {
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+    },
+});
+
+
 $(() => {
     $(document).on("click", ".btn-delete", function (e) {
         e.preventDefault();

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -27,6 +28,9 @@ class RoleDatabaseSeeder extends Seeder
         foreach($roles as $role){
             Role::updateOrCreate($role);
         }
+    
+
+
 
         $permissions = [
             ['name' => 'create-user', 'display_name' => 'Create user', 'group' => 'User'],
@@ -53,6 +57,9 @@ class RoleDatabaseSeeder extends Seeder
             ['name' => 'update-coupon', 'display_name' => 'Update coupon', 'group' => 'Coupon'],
             ['name' => 'show-coupon', 'display_name' => 'Show coupon', 'group' => 'Coupon'],
             ['name' => 'delete-coupon', 'display_name' => 'Delete coupon', 'group' => 'Coupon'],
+
+            ['name' => 'list-order', 'display_name' => 'List order', 'group' => 'Order'],
+            ['name' => 'update-order-status', 'display_name' => 'Update order status', 'group' => 'Order'],
         ];
 
         foreach($permissions as $item){

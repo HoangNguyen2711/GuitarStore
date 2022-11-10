@@ -22,6 +22,7 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->string('status');
+            $table->string('payment');
             $table->double('total');
             $table->double('ship');
             $table->string('customer_name');

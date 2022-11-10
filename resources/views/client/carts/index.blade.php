@@ -129,6 +129,7 @@
 @section('script')
     <script>
         $(function() {
+            
             getTotalValue();
 
             function getTotalValue() {
@@ -178,8 +179,7 @@
                             );
                         }
                         getTotalValue();
-                        // cartProductPrice;
-                        
+
                         $(".total-price").text(`$${cart.total_price}`);
                         Swal.fire({
                             position: "center",

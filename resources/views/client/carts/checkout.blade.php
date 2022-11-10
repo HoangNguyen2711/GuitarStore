@@ -120,7 +120,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" checked value="monney" name="payment">
+                                <input type="radio" class="custom-control-input" checked value="money" name="payment">
                                 <label class="custom-control-label">Money</label>
                             </div>
                         </div>

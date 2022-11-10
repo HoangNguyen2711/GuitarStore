@@ -26,7 +26,7 @@
                         <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-5">
+                {{-- <div class="col-md-4 mb-5">
                     <h5 class="font-weight-bold text-dark mb-4">Newsletter</h5>
                     <form action="">
                         <div class="form-group">
@@ -40,7 +40,7 @@
                             <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe Now</button>
                         </div>
                     </form>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

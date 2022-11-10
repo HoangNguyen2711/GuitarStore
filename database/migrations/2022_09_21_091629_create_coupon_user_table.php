@@ -29,14 +29,6 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->double('value');
-            $table->unsignedBigInteger('order_id');
-            $table->foreign('order_id')
-                ->references('id')
-                ->on('orders')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
             $table->timestamps();
         });
     }

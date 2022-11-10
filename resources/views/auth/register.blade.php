@@ -1,10 +1,7 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('client.layouts.app')
+
+@section('content')
+
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
@@ -24,6 +21,23 @@
                 <x-input-label for="email" :value="__('Email')" />
 
                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            </div>
+
+            <!-- Phone -->
+            <div class="mt-4">
+                <x-input-label for="phone" :value="__('Phone')" />
+
+                <x-text-input id="phone" class="block mt-1 w-full" type="phone" name="phone" :value="old('phone')" required />
+            </div>
+
+            <!-- Gender -->
+            <div class="mt-4">
+                <x-input-label for="gender" :value="__('Gender')" />
+                <div class="mt-4">
+                    <select name="gender" class="form-control">
+                        <option value="male">Male</option>
+                        <option value="fe-male">Female</option>
+                    </select>
             </div>
 
             <!-- Password -->
@@ -55,5 +69,5 @@
                 </x-primary-button>
             </div>
         </form>
-    </x-auth-card>
-</x-guest-layout>
+
+@endsection
