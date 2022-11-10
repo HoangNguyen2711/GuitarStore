@@ -13,9 +13,14 @@ use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Client\ProductController;
 use App\Models\Product;
 use App\Models\Role;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
+if(App::environment('production')){
+    URL::forceScheme('https');
+}
 /*
 |--------------------------------------------------------------------------
 | Web Routes
