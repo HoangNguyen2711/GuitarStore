@@ -2,7 +2,36 @@
 @section('title', 'Cart')
 @section('content')
     <div class="container-fluid pt-5">
-        <form class="row px-xl-5" method="POST" action="{{ route('client.checkout.proccess') }}">
+        <?php
+        // if($value == 'money'){
+        $action = "/process-checkout";
+        // }else if($value == 'vnpay'){
+        //     $action ="{{ route('vnpay') }}";
+        // }
+        echo $action;
+        ?>
+        <div class="card-body">
+            <div class="form-group">
+                <div class="custom-control custom-radio">
+
+                    <input type="radio" id="money" class="custom-control-input" checked value="{{$money}}" name="payment">
+                    <label for="money" class="custom-control-label">Cash On Delivery</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="vnpay" class="custom-control-input" value="{{$vnpay}}" name="payment">
+                    <label for="vnpay" class="custom-control-label">VNPAY</label>
+                </div>
+            </div>
+        </div>
+        <?php
+        if($value == 'money'){
+        $action = "/process-checkout";
+        // }else if($value == 'vnpay'){
+        //     $action ="{{ route('vnpay') }}";
+        // }
+        echo $action;
+        ?>
+        <form class="row px-xl-5" method="POST" action=" {{$action }}">
             @csrf
             <div class="col-lg-8">
                 <div class="mb-4">
@@ -42,15 +71,15 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror ()
                         </div>
+
                         <div class="col-md-6 form-group">
                             <label>Note </label>
                             <input class="form-control" value="{{ old('note') }}" name="note" type="text"
-                                placeholder="123 Street">
+                                placeholder="Deli soon">
                             @error('note')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror ()
                         </div>
-
                     </div>
                 </div>
 
@@ -67,19 +96,22 @@
                                 <p> {{ $item->product_quantity }} x {{ $item->product->name }}</p>
                                 <p
                                     style="
-                                                                                                                                                                                                                                                                                                                                                                {{ $item->product->sale ? 'text-decoration: line-through' : '' }};
-                                                                                                                                                                                                                                                                                                                                                                                                                      ">
+                               {{ $item->product->sale ? 'text-decoration: line-through' : '' }};
+                               ">
                                     ${{ $item->product_quantity * $item->product->price }}
                                 </p>
-
                                 @if ($item->product->sale)
-                                    <p
-                                        style="
-                                                                                                                                                                                                                                                                                                                                                                                                                            ">
+                                    <p style="
+                               ">
                                         ${{ $item->product_quantity * $item->product->sale_price }}
                                     </p>
                                 @endif
-
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <input type="hidden" value="{{ $item->product->name }}" name="product_name">
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <input type="hidden" value="{{ $item->product_quantity }}" name="quantity">
                             </div>
                         @endforeach
                         <hr class="mt-0">
@@ -117,15 +149,6 @@
                     <div class="card-header bg-secondary border-0">
                         <h4 class="font-weight-semi-bold m-0">Payment</h4>
                     </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" checked value="money" name="payment">
-                                <label class="custom-control-label">Money</label>
-                            </div>
-                        </div>
-
-                    </div>
                     <div class="card-footer border-secondary bg-transparent">
                         <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place
                             Order</button>
@@ -133,6 +156,21 @@
                 </div>
             </div>
         </form>
+        {{-- <form action="{{ route('vnpay') }}" method="post">
+            @csrf
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input" checked value="vnpay" name="redirect">
+                        <label class="custom-control-label">VNPAY</label>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer border-secondary bg-transparent">
+                <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place
+                    Order</button>
+            </div>
+        </form> --}}
     </div>
 @endsection
 @section('script')
@@ -154,4 +192,3 @@
     </script>
 
 @endsection
-
