@@ -20,7 +20,7 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders =  $this->order->paginate(10);
+        $orders =  $this->order->latest('id')->paginate(10);
         return view('admin.orders.index', compact('orders'));
     }
 

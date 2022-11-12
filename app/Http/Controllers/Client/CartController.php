@@ -62,12 +62,12 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->product_size) {
+        if ($request->product_size) {
 
             $product = $this->product->findOrFail($request->product_id);
             $cart = $this->cart->firtOrCreateBy(auth()->user()->id);
             $cartProduct = $this->cartProduct->getBy($cart->id, $product->id, $request->product_size);
-            if($cartProduct) {
+            if ($cartProduct) {
                 $quantity = $cartProduct->product_quantity;
                 $cartProduct->update(['product_quantity' => ($quantity + $request->product_quantity)]);
             } else {
@@ -79,9 +79,9 @@ class CartController extends Controller
                 $this->cartProduct->create($dataCreate);
             }
             return back()->with(['message' => 'Added!']);
-           } else {
+        } else {
             return back()->with(['message' => 'Please choose size!']);
-           }
+        }
     }
 
     /**
@@ -131,22 +131,22 @@ class CartController extends Controller
 
     public function removeProductInCart($id)
     {
-         $cartProduct =  $this->cartProduct->find($id);
-         $cartProduct->delete();
-         $cart =  $cartProduct->cart;
-         return response()->json([
-             'product_cart_id' => $id,
-             'cart' => new CartResource($cart)
-         ], Response::HTTP_OK);
+        $cartProduct =  $this->cartProduct->find($id);
+        $cartProduct->delete();
+        $cart =  $cartProduct->cart;
+        return response()->json([
+            'product_cart_id' => $id,
+            'cart' => new CartResource($cart)
+        ], Response::HTTP_OK);
     }
 
 
 
     public function updateQuantityProduct(Request $request, $id)
     {
-         $cartProduct =  $this->cartProduct->find($id);
-         $dataUpdate = $request->all();
-         if($dataUpdate['product_quantity'] < 1 ) {
+        $cartProduct =  $this->cartProduct->find($id);
+        $dataUpdate = $request->all();
+        if ($dataUpdate['product_quantity'] < 1) {
             $cartProduct->delete();
         } else {
             $cartProduct->update($dataUpdate);
@@ -169,14 +169,12 @@ class CartController extends Controller
 
         $coupon =  $this->coupon->firstWithExperyDate($name, auth()->user()->id);
 
-        if($coupon)
-        {
+        if ($coupon) {
             $message = 'Apply coupon sucessfully!';
             Session::put('coupon_id', $coupon->id);
             Session::put('discount_amount_price', $coupon->vale);
-            Session::put('coupon_code' , $coupon->name);
-
-        }else{
+            Session::put('coupon_code', $coupon->name);
+        } else {
 
             Session::forget(['coupon_id', 'discount_amount_price', 'coupon_code']);
             $message = 'Coupon does not exist or has expired!';
@@ -202,11 +200,9 @@ class CartController extends Controller
         $dataCreate['status'] = 'Pending';
         $this->order->create($dataCreate);
         $couponID = Session::get('coupon_id');
-        if($couponID)
-        {
+        if ($couponID) {
             $coupon =  $this->coupon->find(Session::get('coupon_id'));
-            if($coupon)
-            {
+            if ($coupon) {
                 $coupon->users()->attach(auth()->user()->id, ['value' => $coupon->vale]);
             }
         }
@@ -214,8 +210,76 @@ class CartController extends Controller
         $cart->products()->delete();
         Session::forget(['coupon_id', 'discount_amount_price', 'coupon_code']);
         $orders =  $this->order->getWithPaginateBy(auth()->user()->id);
+        // var_dump($cart);
         return view('client.orders.index', compact('orders'));
     }
 
+    public function vnpay()
+    {
+        
+        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+        $vnp_Returnurl = "https://www.google.com/";
+        $vnp_TmnCode = "TH87NPJF"; //Mã website tại VNPAY 
+        $vnp_HashSecret = "LAAWGIZHDDZCTRWPKISCPCNIYNHJOSHI"; //Chuỗi bí mật
 
+        $vnp_TxnRef = '6'; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+        $vnp_OrderInfo = 'test payment';
+        $vnp_OrderType = 'bill payment';
+        $vnp_Amount = 10000*100;
+        $vnp_Locale = 'vn';
+        $vnp_BankCode = 'NCB';
+        $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
+
+        $inputData = array(
+            "vnp_Version" => "2.1.0",
+            "vnp_TmnCode" => $vnp_TmnCode,
+            "vnp_Amount" => $vnp_Amount,
+            "vnp_Command" => "pay",
+            "vnp_CreateDate" => date('YmdHis'),
+            "vnp_CurrCode" => "VND",
+            "vnp_IpAddr" => $vnp_IpAddr,
+            "vnp_Locale" => $vnp_Locale,
+            "vnp_OrderInfo" => $vnp_OrderInfo,
+            "vnp_OrderType" => $vnp_OrderType,
+            "vnp_ReturnUrl" => $vnp_Returnurl,
+            "vnp_TxnRef" => $vnp_TxnRef
+        );
+
+        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+            $inputData['vnp_BankCode'] = $vnp_BankCode;
+        }
+        if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
+            $inputData['vnp_Bill_State'] = $vnp_Bill_State;
+        }
+
+        //var_dump($inputData);
+        ksort($inputData);
+        $query = "";
+        $i = 0;
+        $hashdata = "";
+        foreach ($inputData as $key => $value) {
+            if ($i == 1) {
+                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+            } else {
+                $hashdata .= urlencode($key) . "=" . urlencode($value);
+                $i = 1;
+            }
+            $query .= urlencode($key) . "=" . urlencode($value) . '&';
+        }
+
+        $vnp_Url = $vnp_Url . "?" . $query;
+        if (isset($vnp_HashSecret)) {
+            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //  
+            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+        }
+        $returnData = array(
+            'code' => '00', 'message' => 'success', 'data' => $vnp_Url
+        );
+        if (isset($_POST['redirect'])) {
+            header('Location: ' . $vnp_Url);
+            die();
+        } else {
+            echo json_encode($returnData);
+        }
+    }
 }

@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function(){
     Route::post('remove-product-in-cart/{cart_product_id}', [CartController::class, 'removeProductInCart'])->name('client.carts.remove_product');
     Route::post('apply-coupon', [CartController::class, 'applyCoupon'])->name('client.carts.apply_coupon');
     Route::get('checkout', [CartController::class, 'checkout'])->name('client.checkout.index')->middleware('user.can-checkout');
+    Route::post('vnpay', [CartController::class, 'vnpay'])->name('vnpay');
     Route::post('process-checkout', [CartController::class, 'processCheckout'])->name('client.checkout.proccess')->middleware('user.can-checkout');
     Route::get('list-orders', [OrderController::class, 'index'])->name('client.orders.index');
     Route::post('orders/cancel/{id}', [OrderController::class, 'cancel'])->name('client.orders.cancel');
@@ -55,23 +56,6 @@ Route::middleware('auth')->group(function(){
 
 Auth::routes();
 
-
-// Admin
-// Route::middleware('auth')->group(function(){
-
-//     Route::get('/dashboard', function () {
-//         return view('admin.dashboard.index');
-//     })->name('dashboard');
-
-//     Route::resource('roles', RoleController::class);
-//     Route::resource('users', UserController::class);
-//     Route::resource('categories', CategoryController::class);
-//     Route::resource('products', ProductContronller::class);
-//     Route::resource('coupons', CouponController::class);
-//     Route::get('orders', [AdminOrderController::class, 'index'])->name('admin.orders.index')->middleware('list-order');
-//     Route::post('update-status/{id}', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.update_status')->middleware('update-order-status');
-
-// });
 
 Route::middleware('auth')->group(function(){
 
@@ -134,5 +118,6 @@ Route::middleware('auth')->group(function(){
     // });
     Route::get('orders', [AdminOrderController::class, 'index'])->name('admin.orders.index')->middleware('permission:list-order');
     Route::post('update-status/{id}', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.update_status')->middleware('permission:update-order-status');
+
 
 });
