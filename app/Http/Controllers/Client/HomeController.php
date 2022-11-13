@@ -32,8 +32,10 @@ class HomeController extends Controller
     {
         $products =  $this->product->latest('id')->paginate(10);
         $promoProducts =  $this->product->where('sale', '>', '0')->orderBy('sale', 'DESC')->paginate(4);
-        //$totalQuantity =  $this->order->select('product_name', 'quantity')->groupBy('product_name')->get(4);
-        //var_dump($totalQuantity);
+        // $totalQuantity =  $this->order->selectRaw('product_name, SUM(quantity) as total_quantity')->groupBy('product_name')->get();
+
+        
+        // var_dump($totalQuantity);
 
         //select from product where product_name=====
         //count product dua tren product_name

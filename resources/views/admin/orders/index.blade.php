@@ -19,15 +19,13 @@
                             <th>Email</th>
                             <th>Address</th>
                             <th>Product</th>
+                            <th>size</th>
                             <th>Qty</th>
                             <th>Total</th>
                             <th>Note</th>
                             <th>Payment</th>
                             <th>Status</th>
-   
-   
                         </tr>
-
                         @foreach ($orders as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
@@ -35,7 +33,8 @@
                                 <td>{{ $item->customer_phone }}</td>
                                 <td>{{ $item->customer_email }}</td>
                                 <td>{{ $item->customer_address }}</td>
-                                <td>{{ $item->product_name }}</td>
+                                <td>{{ $item->product->name }}</td>
+                                <td>{{ $item->size }}</td>
                                 <td>{{ $item->quantity }}</td>
                                 <td>${{ $item->total }}</td>
                                 <td>{{ $item->note }}</td>

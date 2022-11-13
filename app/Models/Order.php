@@ -19,8 +19,9 @@ class Order extends Model
         'customer_address',
         'note',
         'payment',
-        'product_name',
-        'quantity'
+        'product_id',
+        'quantity',
+        'size'
     ];
 
     public function getWithPaginateBy($userId)
@@ -28,6 +29,10 @@ class Order extends Model
         return $this->whereUserId($userId)->latest('id')->paginate(10);
     }
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 
 
 }

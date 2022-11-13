@@ -40,8 +40,8 @@ class DashboardController extends Controller
         $productCount = $this->product->count();
         $couponCount = $this->coupon->count();
         $roleCount = $this->role->count();
-
-        return view('admin.dashboard.index', compact('userCount', 'categoryCount', 'productCount', 'orderCount', 'couponCount', 'roleCount'));
+        $orderPending = $this->order->where('status','Pending')->latest('id')->paginate(5);
+        return view('admin.dashboard.index', compact('userCount', 'categoryCount', 'productCount', 'orderCount', 'couponCount', 'roleCount','orderPending'));
     }
 }
 
