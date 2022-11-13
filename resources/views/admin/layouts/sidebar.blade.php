@@ -4,7 +4,7 @@
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href=" " target="_blank">
+        <a class="navbar-brand m-0" href="/" target="_blank">
             <img src="{{ asset('admin/assets/img/logo-ct.png') }}" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-1 font-weight-bold text-white">Hi! {{ auth()->user()->name }}</span>
         </a>
@@ -26,7 +26,7 @@
                 <a class="nav-link text-white {{ request()->routeIs('roles.*') ? 'bg-gradient-primary active' : '' }} "
                     href="{{ route('roles.index') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">apps</i>
+                        <i class="material-icons opacity-10">person</i>
                     </div>
                     <span class="nav-link-text ms-1">Role</span>
                 </a>
@@ -48,7 +48,7 @@
                 <a class="nav-link text-white{{ request()->routeIs('products.*') ? 'bg-gradient-primary active' : '' }} "
                     href="{{ route('products.index') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">account_circle</i>
+                        <i class="material-icons opacity-10">inventory_2</i>
                     </div>
                     <span class="nav-link-text ms-1">Product</span>
                 </a>
@@ -59,7 +59,7 @@
                 <a class="nav-link text-white {{ request()->routeIs('categories.*') ? 'bg-gradient-primary active' : '' }} "
                     href="{{ route('categories.index') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
+                        <i class="material-icons opacity-10">grade</i>
                     </div>
                     <span class="nav-link-text ms-1">Category</span>
                 </a>
@@ -81,7 +81,7 @@
                 <a class="nav-link text-white {{ request()->routeIs('admin.orders.*') ? 'bg-gradient-primary active' : '' }} "
                     href="{{ route('admin.orders.index') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
+                        <i class="material-icons opacity-10">reorder</i>
                     </div>
                     <span class="nav-link-text ms-1">Order</span>
                 </a>

@@ -2,36 +2,7 @@
 @section('title', 'Cart')
 @section('content')
     <div class="container-fluid pt-5">
-        <?php
-        // if($value == 'money'){
-        $action = "/process-checkout";
-        // }else if($value == 'vnpay'){
-        //     $action ="{{ route('vnpay') }}";
-        // }
-        echo $action;
-        ?>
-        <div class="card-body">
-            <div class="form-group">
-                <div class="custom-control custom-radio">
-
-                    <input type="radio" id="money" class="custom-control-input" checked value="{{$money}}" name="payment">
-                    <label for="money" class="custom-control-label">Cash On Delivery</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input type="radio" id="vnpay" class="custom-control-input" value="{{$vnpay}}" name="payment">
-                    <label for="vnpay" class="custom-control-label">VNPAY</label>
-                </div>
-            </div>
-        </div>
-        <?php
-        if($value == 'money'){
-        $action = "/process-checkout";
-        // }else if($value == 'vnpay'){
-        //     $action ="{{ route('vnpay') }}";
-        // }
-        echo $action;
-        ?>
-        <form class="row px-xl-5" method="POST" action=" {{$action }}">
+        <form class="row px-xl-5" method="POST" action=" {{ route('client.checkout.proccess') }}">
             @csrf
             <div class="col-lg-8">
                 <div class="mb-4">
@@ -123,8 +94,8 @@
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Shipping</h6>
-                            <h6 class="font-weight-medium shipping" data-price="20">$20</h6>
-                            <input type="hidden" value="20" name="ship">
+                            <h6 class="font-weight-medium shipping" data-price="5">$5</h6>
+                            <input type="hidden" value="5" name="ship">
 
                         </div>
                         @if (session('discount_amount_price'))
@@ -142,6 +113,16 @@
                             <h5 class="font-weight-bold">Total</h5>
                             <h5 class="font-weight-bold total-price-all"></h5>
                             <input type="hidden" id="total" value="" name="total">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+            
+                                <input type="radio" id="money" class="custom-control-input" checked value="money" name="payment">
+                                <label for="money" class="custom-control-label">Cash On Delivery</label>
+                            </div>
+            
                         </div>
                     </div>
                 </div>
