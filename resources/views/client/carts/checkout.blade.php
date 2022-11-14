@@ -78,15 +78,6 @@
                                     </p>
                                 @endif
                             </div>
-                            <div class="d-flex justify-content-between">
-                                <input type="hidden" value="{{ $item->product_id }}" name="product_id">
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <input type="hidden" value="{{ $item->product_quantity }}" name="quantity">
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <input type="hidden" value="{{ $item->product_size }}" name="size">
-                            </div>
                         @endforeach
                         <hr class="mt-0">
                         <div class="d-flex justify-content-between mb-3 pt-1">
@@ -121,11 +112,12 @@
                     <div class="card-body">
                         <div class="form-group">
                             <div class="custom-control custom-radio">
-            
-                                <input type="radio" id="money" class="custom-control-input" checked value="money" name="payment">
+
+                                <input type="radio" id="money" class="custom-control-input" checked value="money"
+                                    name="payment">
                                 <label for="money" class="custom-control-label">Cash On Delivery</label>
                             </div>
-            
+
                         </div>
                     </div>
                 </div>

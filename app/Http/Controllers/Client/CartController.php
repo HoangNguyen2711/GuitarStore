@@ -194,11 +194,21 @@ class CartController extends Controller
 
     public function processCheckout(CreateOrderRequest $request)
     {
-
         $dataCreate = $request->all();
         $dataCreate['user_id'] = auth()->user()->id;
         $dataCreate['status'] = 'Pending';
-        $this->order->create($dataCreate);
+        $order = $this->order->create($dataCreate);
+
+        $cart = $this->cart->firtOrCreateBy(auth()->user()->id)->load('products');
+        $productArr = $cart->products->pluck('product_id');
+        $quantityArr = $cart->products->pluck('product_quantity');
+        $sizeArr = $cart->products->pluck('product_size');
+        for ($i = 0; $i < count($productArr); $i++) {
+            if (isset($productArr[$i])) {
+                $order->products()->attach($productArr[$i], ['quantity' => $productArr[$i], 'size' => $sizeArr[$i]]);
+            }
+        }
+
         $couponID = Session::get('coupon_id');
         if ($couponID) {
             $coupon =  $this->coupon->find(Session::get('coupon_id'));
@@ -216,7 +226,7 @@ class CartController extends Controller
 
     public function vnpay()
     {
-        
+
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = "https://www.google.com/";
         $vnp_TmnCode = "TH87NPJF"; //Mã website tại VNPAY 
@@ -225,7 +235,7 @@ class CartController extends Controller
         $vnp_TxnRef = '6'; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = 'test payment';
         $vnp_OrderType = 'bill payment';
-        $vnp_Amount = 10000*100;
+        $vnp_Amount = 10000 * 100;
         $vnp_Locale = 'vn';
         $vnp_BankCode = 'NCB';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
