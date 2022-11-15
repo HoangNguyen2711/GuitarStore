@@ -180,7 +180,9 @@
                         }
                         getTotalValue();
 
-                        $(".total-price").text(`$${cart.total_price}`);
+                        let total = $(".total-price").text(`$${cart.total_price}`);
+                        let couponPrice = $(".coupon-div")?.data("price") ?? 0;
+                        $(".total-price-all").text(`$${cart.total_price - couponPrice}`);
                         Swal.fire({
                             position: "center",
                             icon: "success",

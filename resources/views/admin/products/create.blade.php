@@ -62,7 +62,7 @@
                 <input type="hidden" id="inputSize" name='sizes'>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddSizeModal">
-                    Add size
+                    Add Details
                 </button>
 
                 <!-- Modal -->
@@ -71,7 +71,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="AddSizeModalLabel">Add size</h5>
+                                <h5 class="modal-title" id="AddSizeModalLabel">Inventory</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -79,7 +79,8 @@
 
                             </div>
                             <div class="mt-3">
-                                <button type="button" class="btn  btn-primary btn-add-size">Add</button>
+                                <button type="button" class="btn  btn-primary btn-add-size">Add to Iven</button>
+                                <button type="button" class="btn  btn-primary btn-more-size">More size</button>
                             </div>
                         </div>
                     </div>
@@ -113,7 +114,7 @@
     <script>
         let sizes = [{
             id: Date.now(),
-            size: 'M',
+            size: '4/4',
             quantity: 1
         }];
     </script>

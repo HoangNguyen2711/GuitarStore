@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\OrderDetail;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,8 +21,9 @@ class DashboardController extends Controller
     protected $product;
     protected $coupon;
     protected $role;
+    protected $orderdetail;
 
-    public function __construct(User $user, Category $category, Order $order, Product $product, Coupon $coupon, Role $role)
+    public function __construct(User $user, Category $category, Order $order, Product $product, Coupon $coupon, Role $role, OrderDetail $orderdetail)
     {
         $this->user = $user;
         $this->category = $category;
@@ -29,6 +31,7 @@ class DashboardController extends Controller
         $this->product = $product;
         $this->coupon = $coupon;
         $this->role = $role;
+        $this->orderdetail= $orderdetail;
     }
 
     public function index()

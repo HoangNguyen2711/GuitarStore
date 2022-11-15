@@ -36,7 +36,7 @@ $(() => {
     function addSize() {
         let size = {
             id: Date.now(),
-            size: "30",
+            size: "/",
             quantity: 1,
         };
         sizes = [...sizes, size];
@@ -54,8 +54,12 @@ $(() => {
     });
 
     $(document).on("click", ".btn-add-size", function () {
-        addSize();
         appendSizesToForm();
+        $("#AddSizeModal").modal('toggle');
+    });
+
+    $(document).on("click", ".btn-more-size", function () {
+        addSize();
     });
 
     $(document).on("keyup", ".input-size", function () {

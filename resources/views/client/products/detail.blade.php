@@ -119,7 +119,7 @@
                     </div>
 
                     <div class="tab-pane fade" id="tab-pane-3">
-                        <div class="fb-comments" data-href="{{ URL::current() }}" data-width="800" data-numposts="5"></div>
+                        <div class="fb-comments" data-href="{{ Request::url() }}" data-width="800" data-numposts="5"></div>
                     </div>
    
                     </div>
@@ -127,7 +127,4 @@
             </div>
         </div>
     </div>
-    
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=506636208173034&autoLogAppEvents=1" nonce="1YtTIrkk"></script>
 @endsection

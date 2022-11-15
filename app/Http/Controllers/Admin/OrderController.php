@@ -6,16 +6,18 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use Illuminate\Http\Response;
 
 
 class OrderController extends Controller
 {
-    protected $order;
+    protected $order, $orderdetail;
 
-    public function __construct(Order $order)
+    public function __construct(Order $order, OrderDetail $orderdetail)
     {
         $this->order = $order;
+        $this->order = $orderdetail;
     }
 
     public function index()

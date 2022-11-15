@@ -73,7 +73,9 @@
             </div>
         </div>
     </div>
-    <div class="card mt-4">
+
+    
+    {{-- <div class="card mt-4">
 
         <h1>
             Orders
@@ -106,7 +108,7 @@
                                 <td>{{ $item->customer_phone }}</td>
                                 <td>{{ $item->customer_email }}</td>
                                 <td>{{ $item->customer_address }}</td>
-                                <td>{{ $item->product->name }}</td>
+                                <td>{{ $item->orderdetail->productname }}</td>
                                 <td>{{ $item->size }}</td>
                                 <td>{{ $item->quantity }}</td>
                                 <td>${{ $item->total }}</td>
@@ -132,7 +134,7 @@
             </div>
 
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @section('script')
