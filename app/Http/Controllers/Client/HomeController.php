@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -16,11 +17,12 @@ class HomeController extends Controller
      * @return void
      */
 
-    protected $product, $order;
-    public function __construct(Product $product, Order $order)
+    protected $product, $order, $orderdetail;
+    public function __construct(Product $product, Order $order, OrderDetail $orderdetail)
     {
         $this->product = $product;
         $this->order = $order;
+        $this->orderdetail = $orderdetail;
     }
 
     /**
@@ -32,13 +34,14 @@ class HomeController extends Controller
     {
         $products =  $this->product->latest('id')->paginate(10);
         $promoProducts =  $this->product->where('sale', '>', '0')->orderBy('sale', 'DESC')->paginate(4);
-        // $totalQuantity =  $this->order->selectRaw('product_name, SUM(quantity) as total_quantity')->groupBy('product_name')->get();
-
+        
+        $totalQuantity =  $this->orderdetail->with('product')->selectRaw('product_id, SUM(quantity) as total_quantity')->groupBy('product_id')->get();
+        
         
         // var_dump($totalQuantity);
 
-        //select from product where product_name=====
-        //count product dua tren product_name
+        //select from product where product_id=====
+        //count product dua tren product_id
         //order quantity desc,
         //get 3-4 quanity;
         //map product tale
@@ -52,7 +55,7 @@ class HomeController extends Controller
 
         
         //lay product_name tu model order, lay thong tin tu bang product where product_name = productname trong bang order
-        return view('client.home.index', compact('products','promoProducts'));
+        return view('client.home.index', compact('products','promoProducts','totalQuantity'));
     }
 
     public function shop()
