@@ -17,12 +17,13 @@ class OrderController extends Controller
     public function __construct(Order $order, OrderDetail $orderdetail)
     {
         $this->order = $order;
-        $this->order = $orderdetail;
+        $this->orderdetail = $orderdetail;
     }
 
     public function index()
     {
-        $orders =  $this->order->latest('id')->paginate(10);
+        // $orderdetails =  $this->orderdetail->with('product')->latest('order_id')->paginate(10);
+        $orders = $this->order->with(['orderdetails','orderdetails.product'])->latest('id')->paginate(10);
         return view('admin.orders.index', compact('orders'));
     }
 

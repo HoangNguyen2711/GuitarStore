@@ -41,7 +41,7 @@
     <div>
         <div class="container-fluid pt-5">
             <div class="text-center mb-4">
-                <h2 class="section-title px-5"><span class="px-2">HOT ITEMS</span></h2>
+                <h2 class="section-title px-5"><span class="px-2">BEST SELLERS</span></h2>
             </div>
             <div class="row px-xl-5 pb-3">
                 @foreach ($totalQuantity as $item)
@@ -54,7 +54,7 @@
                             <h6 class="text-truncate mb-3">{{ $item->product->name }}</h6>
                             <div class="d-flex justify-content-center">
                                 @if ($item->product->sale > 0)
-                                <h6>${{ $item->product->price - ($item->product->price * ($item->sale)/100) }}</h6><h6 class="text-muted ml-2"><del>${{ $item->product->price }}</del></h6>
+                                <h6>${{ $item->product->price - ($item->product->price * ($item->product->sale)/100) }}</h6><h6 class="text-muted ml-2"><del>${{ $item->product->price }}</del></h6>
                                 @else
                                 <h6>${{ $item->product->price }}</h6>   
                                 @endif
@@ -73,7 +73,7 @@
  
         <div class="container-fluid pt-1">
             <div class="text-center mb-4">
-                <h2 class="section-title px-5"><span class="px-2">HOT SALE</span></h2>
+                <h2 class="section-title px-5"><span class="px-2">HOT DEALS</span></h2>
             </div>
             <div class="row px-xl-5 pb-3">
                 @foreach ($promoProducts as $item)

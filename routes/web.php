@@ -35,6 +35,7 @@ if(App::environment('production')){
 Route::get('/', [HomeController::class, 'index'])->name('client.home');
 Route::get('/shop', [HomeController::class, 'shop'])->name('client.shop');
 Route::post('/search', [HomeController::class, 'search'])->name('client.search');
+Route::get('policy', [HomeController::class, 'policy'])->name('client.policy');
 Route::get('product/{category_id}', [ProductController::class, 'index'])->name('client.products.index');
 Route::get('product-detail/{id}', [ProductController::class, 'show'])->name('client.products.show');
 

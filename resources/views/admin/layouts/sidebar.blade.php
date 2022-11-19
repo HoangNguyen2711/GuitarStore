@@ -42,17 +42,6 @@
                     <span class="nav-link-text ms-1">User</span>
                 </a>
             </li>
-            @endcan    
-            @can('show-product')
-            <li class="nav-item">
-                <a class="nav-link text-white{{ request()->routeIs('products.*') ? 'bg-gradient-primary active' : '' }} "
-                    href="{{ route('products.index') }}">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">inventory_2</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Product</span>
-                </a>
-            </li>
             @endcan
             @can('show-category')
             <li class="nav-item">
@@ -62,6 +51,17 @@
                         <i class="material-icons opacity-10">grade</i>
                     </div>
                     <span class="nav-link-text ms-1">Category</span>
+                </a>
+            </li>
+            @endcan    
+            @can('show-product')
+            <li class="nav-item">
+                <a class="nav-link text-white{{ request()->routeIs('products.*') ? 'bg-gradient-primary active' : '' }} "
+                    href="{{ route('products.index') }}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">inventory_2</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Product</span>
                 </a>
             </li>
             @endcan

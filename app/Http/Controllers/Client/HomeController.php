@@ -112,4 +112,10 @@ class HomeController extends Controller
         return view('client.products.search', compact('search'));
     }
 
+    public function policy()
+    {
+
+        return view('client.home.policy');
+    }
+
 }

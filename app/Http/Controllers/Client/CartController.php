@@ -11,6 +11,7 @@ use App\Models\CartProduct;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\ProductDetail;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 
@@ -22,14 +23,16 @@ class CartController extends Controller
     protected $cartProduct;
     protected $coupon;
     protected $order;
+    protected $productdetail;
 
-    public function __construct(Product $product, Cart $cart, CartProduct $cartProduct, Coupon $coupon, Order $order)
+    public function __construct(Product $product, Cart $cart, CartProduct $cartProduct, Coupon $coupon, Order $order, ProductDetail $productdetail)
     {
         $this->product = $product;
         $this->cart = $cart;
         $this->cartProduct = $cartProduct;
         $this->coupon = $coupon;
         $this->order = $order;
+        $this->productdetail = $productdetail;
     }
 
     /**
@@ -205,7 +208,10 @@ class CartController extends Controller
         $sizeArr = $cart->products->pluck('product_size');
         for ($i = 0; $i < count($productArr); $i++) {
             if (isset($productArr[$i])) {
-                $order->products()->attach($productArr[$i], ['quantity' => $productArr[$i], 'size' => $sizeArr[$i]]);
+                $order->products()->attach($productArr[$i], ['quantity' => $quantityArr[$i], 'size' => $sizeArr[$i]]);
+                $minus = $this->productdetail->where([['product_id',$productArr[$i]],['size',$sizeArr[$i]]])->first();
+                $minus->quantity = $minus->quantity - $quantityArr[$i];
+                $minus->save();
             }
         }
 

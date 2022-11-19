@@ -9,8 +9,8 @@
                     <i class="material-icons opacity-10">weekend</i>
                 </div>
                 <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Today's Money</p>
-                    <h4 class="mb-0">$53k</h4>
+                    <p class="text-sm mb-0 text-capitalize">Total Users</p>
+                    <h4 class="mb-0">{{ $userCount }}</h4>
                 </div>
             </div>
             <hr class="dark horizontal my-0">
@@ -27,8 +27,8 @@
                     <i class="material-icons opacity-10">person</i>
                 </div>
                 <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-                    <h4 class="mb-0">2,300</h4>
+                    <p class="text-sm mb-0 text-capitalize">Total Orders</p>
+                    <h4 class="mb-0">{{ $orderCount }}</h4>
                 </div>
             </div>
             <hr class="dark horizontal my-0">
@@ -45,8 +45,8 @@
                     <i class="material-icons opacity-10">person</i>
                 </div>
                 <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">New Clients</p>
-                    <h4 class="mb-0">3,462</h4>
+                    <p class="text-sm mb-0 text-capitalize">Total Products</p>
+                    <h4 class="mb-0">{{ $productCount }}</h4>
                 </div>
             </div>
             <hr class="dark horizontal my-0">
@@ -63,8 +63,8 @@
                     <i class="material-icons opacity-10">weekend</i>
                 </div>
                 <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Sales</p>
-                    <h4 class="mb-0">$103,430</h4>
+                    <p class="text-sm mb-0 text-capitalize">Total Coupons</p>
+                    <h4 class="mb-0">{{ $couponCount }}</h4>
                 </div>
             </div>
             <hr class="dark horizontal my-0">

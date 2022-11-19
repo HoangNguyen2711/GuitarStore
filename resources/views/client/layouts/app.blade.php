@@ -139,6 +139,7 @@
                                 <a href="{{ route('client.home') }}" class="nav-item nav-link active">Home</a>
                                 <a href="{{ route('client.shop') }}" class="nav-item nav-link ">Shop</a>
                                 <a href="{{ route('client.orders.index') }}" class="nav-link">Order</a>
+                                <a href="{{ route('client.policy') }}" class="nav-link">Policy</a>
                                 @can('list-order')
                                     <a href="{{ route('dashboard') }}" class=" nav-link"> Management</a>
                                 @endcan
@@ -212,14 +213,35 @@
 
         <!-- Rasa chatbot -->
 
-        <div data-avatar-url="https://www.google.com/url?sa=i&url=https%3A%2F%2Fkenh14.vn%2Fco-1-nu-chinh-mang-ten-jennie-blackpink-trong-lang-giai-tri-han-voi-cuoc-doi-tua-cuon-tieu-thuyet-20220924164547385.chn&psig=AOvVaw2ZpkGjoVMcs0ml-hIjkUv7&ust=1668589053392000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCKih89_or_sCFQAAAAAdAAAAABAE"
-            data-initial-payload="Hello GuitarStore here!" data-root-element-id="storybook-preview-wrapper"
-            data-websocket-url="http://localhost:5005/" id="rasa-chat-widget" 
-            data-primary="#2C5DCB" 
-            data-primary-highlight="#2C5DCB">
+        <div data-initial-payload="hi" data-root-element-id="storybook-preview-wrapper"
+            data-websocket-url="http://localhost:5005/"  id="rasa-chat-widget">
 
             <script src="https://unpkg.com/@rasahq/rasa-chat" type="application/javascript"></script>
 
+
+            {{-- <script>!(function () {
+            let e = document.createElement("script"),
+              t = document.head || document.getElementsByTagName("head")[0];
+            (e.src =
+              "https://cdn.jsdelivr.net/npm/rasa-webchat@1.x.x/lib/index.js"),
+              // Replace 1.x.x with the version that you want
+              (e.async = !0),
+              (e.onload = () => {
+                window.WebChat.default(
+                  {
+                    initPayload: 'hi',
+                    title: 'GuitarStore Support',
+                    showFullScreenButton: 'true',
+                    customData: { language: "vn" },
+                    socketUrl: "http://localhost:5005/",
+                    // add other props here
+                  },
+                  null
+                );
+              }),
+              t.insertBefore(e, t.firstChild);
+          })();
+          </script> --}}
             <!-- Rasa chatbot end -->
             <script src="{{ asset('admin/assets/base/base.js') }}"></script>
 

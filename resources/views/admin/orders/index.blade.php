@@ -19,7 +19,7 @@
                             <th>Email</th>
                             <th>Address</th>
                             <th>Product</th>
-                            <th>size</th>
+                            <th>Size</th>
                             <th>Qty</th>
                             <th>Total</th>
                             <th>Note</th>
@@ -33,9 +33,15 @@
                                 <td>{{ $item->customer_phone }}</td>
                                 <td>{{ $item->customer_email }}</td>
                                 <td>{{ $item->customer_address }}</td>
-                                <td>{{ $item->product->name }}</td>
-                                <td>{{ $item->size }}</td>
-                                <td>{{ $item->quantity }}</td>
+                                @foreach ($item->orderdetails as $items)
+                                <tr>
+                                    <td>{{ $items->product->name }}</td>
+                                    <td>{{ $items->size }}</td>
+                                    <td>{{ $items->quantity }}</td>
+                                </tr>
+                                @endforeach
+                                
+                            
                                 <td>${{ $item->total }}</td>
                                 <td>{{ $item->note }}</td>
                                 <td>{{ $item->payment }}</td>

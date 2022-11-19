@@ -23,18 +23,16 @@
                 <div id="product-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner border">
                         <div class="carousel-item active">
-                            <img class="w-100 h-100"
-                                src="{{ $product->image_path}}"
-                                alt="Image">
+                            <img class="w-100 h-100" src="{{ $product->image_path }}" alt="Image">
                         </div>
 
                     </div>
-                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                    {{-- <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
                         <i class="fa fa-2x fa-angle-left text-dark"></i>
                     </a>
                     <a class="carousel-control-next" href="#product-carousel" data-slide="next">
                         <i class="fa fa-2x fa-angle-right text-dark"></i>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
 
@@ -43,50 +41,55 @@
                 <div class="d-flex mb-3">
 
                 </div>
-                <h3 class="font-weight-semi-bold mb-4">@if ($product->sale > 0)
-                    ${{ $product->price - ($product->price * ($product->sale)/100) }} <del>${{ $product->price }}</del>
+                <h3 class="font-weight-semi-bold mb-4">
+                    @if ($product->sale > 0)
+                        ${{ $product->price - ($product->price * $product->sale) / 100 }}
+                        <del>${{ $product->price }}</del>
                     @else
-                    ${{ $product->price }}
-                    @endif</h3>
+                        ${{ $product->price }}
+                    @endif
+                </h3>
 
 
-                <div class="d-flex mb-4">
-                    <p class="text-dark font-weight-medium mb-0 mr-3">Size:</p>
-                    @if ($product->details->count() > 0)
+                <div class=" mb-4">
+
                         <form>
                             @foreach ($product->details as $size)
+                            @if ($size->quantity > 0)
+                            <p class="text-dark font-weight-medium mb-0 mr-5">Size:</p>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" name="product_size"
-                                        value="{{ $size->size }}" id="size{{ $size->size }}">
-                                    <label for="size{{ $size->size }}"
-                                        class="
-                                        custom-control-label">{{ $size->size }}</label>
+                                    <input checked type="radio" class="custom-control-input" name="product_size" value="{{ $size->size }}" id="size{{ $size->size }}">
+                                    <label for="size{{ $size->size }}" class="custom-control-label">{{ $size->size }}</label>
+                                </div><br>
+                                <p class="text-dark font-weight-medium mb-0 mr-5">Quantity: {{ $size->quantity }}</p>
+                                {{-- <p class="pd-5">Quantity: {{ $size->quantity }}</p> --}}
+                                <div class="d-flex align-items-center mb-4 pt-2">
+                                    {{-- <div class="input-group quantity mr-3" style="width: 130px;">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-primary btn-minus">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                        <input type="text" class="form-control bg-secondary text-center" value="1">
+                                        <div class="input-group-btn">
+                                            <button  class="btn btn-primary btn-plus">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div> --}}
+                                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
+                                        Cart</button>
                                 </div>
+                                @else
+                                <p>Sold out</p>
+                                @endif
                             @endforeach
                         </form>
-                    @else
-                        <p>Sold out</p>
-                    @endif
+
 
                 </div>
 
 
-                <div class="d-flex align-items-center mb-4 pt-2">
-                    <div class="input-group quantity mr-3" style="width: 130px;">
-                        <div class="input-group-btn">
-                            <button class="btn btn-primary btn-minus">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                        <input type="text" class="form-control bg-secondary text-center" value="1">
-                        <div class="input-group-btn">
-                            <button class="btn btn-primary btn-plus">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
-                </div>
                 <div class="d-flex pt-2">
                     {{-- <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p> --}}
                     <div class="d-inline-flex">
@@ -121,10 +124,10 @@
                     <div class="tab-pane fade" id="tab-pane-3">
                         <div class="fb-comments" data-href="{{ Request::url() }}" data-width="800" data-numposts="5"></div>
                     </div>
-   
-                    </div>
+
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
