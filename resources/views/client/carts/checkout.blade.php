@@ -10,7 +10,7 @@
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label>Name</label>
-                            <input class="form-control" value="{{ old('customer_name') }}" name="customer_name"
+                            <input class="form-control" value="{{ old('customer_name') ?? $user->name }}" name="customer_name"
                                 type="text" placeholder="John">
                             @error('customer_name')
                                 <span class="text-danger">{{ $message }}</span>
@@ -20,7 +20,7 @@
 
                         <div class="col-md-6 form-group">
                             <label>E-mail</label>
-                            <input class="form-control" name="customer_email" value="{{ old('customer_email') }}"
+                            <input class="form-control" name="customer_email" value="{{ old('customer_email') ?? $user->email}}"
                                 type="text" placeholder="example@email.com">
                             @error('customer_email')
                                 <span class="text-danger">{{ $message }}</span>
@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Mobile No</label>
-                            <input class="form-control" name="customer_phone" value="{{ old('customer_phone') }}"
+                            <input class="form-control" name="customer_phone" value="{{ old('customer_phone') ?? $user->phone}}"
                                 type="text" placeholder="+123 456 789">
                             @error('customer_phone')
                                 <span class="text-danger">{{ $message }}</span>
@@ -36,7 +36,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Address </label>
-                            <input class="form-control" name="customer_address" value="{{ old('customer_address') }}"
+                            <input class="form-control" name="customer_address" value="{{ old('customer_address') ?? $user->address}}"
                                 type="text" placeholder="123 Street">
                             @error('customer_address')
                                 <span class="text-danger">{{ $message }}</span>
@@ -109,6 +109,12 @@
                             <input type="hidden" id="total" value="" name="total">
                         </div>
                     </div>
+
+                </div>
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Payment</h4>
+                    </div>
                     <div class="card-body">
                         <div class="form-group">
                             <div class="custom-control custom-radio">
@@ -119,11 +125,6 @@
                             </div>
 
                         </div>
-                    </div>
-                </div>
-                <div class="card border-secondary mb-5">
-                    <div class="card-header bg-secondary border-0">
-                        <h4 class="font-weight-semi-bold m-0">Payment</h4>
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
                         <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place

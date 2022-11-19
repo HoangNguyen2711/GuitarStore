@@ -12,6 +12,7 @@ use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductDetail;
+use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 
@@ -24,8 +25,9 @@ class CartController extends Controller
     protected $coupon;
     protected $order;
     protected $productdetail;
+    protected $user;
 
-    public function __construct(Product $product, Cart $cart, CartProduct $cartProduct, Coupon $coupon, Order $order, ProductDetail $productdetail)
+    public function __construct(Product $product, Cart $cart, CartProduct $cartProduct, Coupon $coupon, Order $order, ProductDetail $productdetail, User $user)
     {
         $this->product = $product;
         $this->cart = $cart;
@@ -33,6 +35,7 @@ class CartController extends Controller
         $this->coupon = $coupon;
         $this->order = $order;
         $this->productdetail = $productdetail;
+        $this->user = $user;
     }
 
     /**
@@ -191,8 +194,9 @@ class CartController extends Controller
     public function checkout()
     {
         $cart = $this->cart->firtOrCreateBy(auth()->user()->id)->load('products');
+        $user = $this->user->find(auth()->user()->id);
 
-        return view('client.carts.checkout', compact('cart'));
+        return view('client.carts.checkout', compact('cart','user'));
     }
 
     public function processCheckout(CreateOrderRequest $request)
