@@ -93,7 +93,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = $this->product->with('details')->findOrFail($id);
+        $product = $this->product->findOrFail($id);
 
         return view('client.products.detail', compact('product'));
     }

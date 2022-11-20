@@ -26,6 +26,11 @@
                 </div>
 
                 <div class="">
+                    <p>Quantity: {{ $product->quantity }}</p>
+
+                </div>
+
+                <div class="">
                     <p>Sale: {{ $product->sale }}</p>
 
                 </div>
@@ -36,16 +41,7 @@
                         {!! $product->description !!}
                     </div>
                 </div>
-                <div>
-                    <p>Color</p>
-                    @if ($product->details->count() > 0)
-                        @foreach ($product->details as $detail)
-                            <p>Size: {{ $detail->size }} - quantity: {{ $detail->quantity }}</p>
-                        @endforeach
-                    @else
-                        <p> This product has not entered the size </p>
-                    @endif
-                </div>
+
 
             </div>
             <div>

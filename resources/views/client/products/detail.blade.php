@@ -54,14 +54,8 @@
                 <div class=" mb-4">
 
                         <form>
-                            @foreach ($product->details as $size)
-                            @if ($size->quantity > 0)
-                            <p class="text-dark font-weight-medium mb-0 mr-5">Size:</p>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input checked type="radio" class="custom-control-input" name="product_size" value="{{ $size->size }}" id="size{{ $size->size }}">
-                                    <label for="size{{ $size->size }}" class="custom-control-label">{{ $size->size }}</label>
-                                </div><br>
-                                <p class="text-dark font-weight-medium mb-0 mr-5">Quantity: {{ $size->quantity }}</p>
+                            @if ($product->quantity > 0)
+                                <p class="text-dark font-weight-medium mb-0 mr-5">Quantity: {{ $product->quantity }}</p>
                                 {{-- <p class="pd-5">Quantity: {{ $size->quantity }}</p> --}}
                                 <div class="d-flex align-items-center mb-4 pt-2">
                                     {{-- <div class="input-group quantity mr-3" style="width: 130px;">
@@ -83,7 +77,6 @@
                                 @else
                                 <p>Sold out</p>
                                 @endif
-                            @endforeach
                         </form>
 
 

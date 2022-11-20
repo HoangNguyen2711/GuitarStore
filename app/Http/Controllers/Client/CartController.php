@@ -11,7 +11,6 @@ use App\Models\CartProduct;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\ProductDetail;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
@@ -24,17 +23,15 @@ class CartController extends Controller
     protected $cartProduct;
     protected $coupon;
     protected $order;
-    protected $productdetail;
     protected $user;
 
-    public function __construct(Product $product, Cart $cart, CartProduct $cartProduct, Coupon $coupon, Order $order, ProductDetail $productdetail, User $user)
+    public function __construct(Product $product, Cart $cart, CartProduct $cartProduct, Coupon $coupon, Order $order, User $user)
     {
         $this->product = $product;
         $this->cart = $cart;
         $this->cartProduct = $cartProduct;
         $this->coupon = $coupon;
         $this->order = $order;
-        $this->productdetail = $productdetail;
         $this->user = $user;
     }
 
@@ -68,27 +65,22 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->product_size) {
-
             $product = $this->product->findOrFail($request->product_id);
             $cart = $this->cart->firtOrCreateBy(auth()->user()->id);
-            $cartProduct = $this->cartProduct->getBy($cart->id, $product->id, $request->product_size);
+            $cartProduct = $this->cartProduct->getBy($cart->id, $product->id);
             if ($cartProduct) {
                 $quantity = $cartProduct->product_quantity;
                 $cartProduct->update(['product_quantity' => ($quantity + $request->product_quantity)]);
             } else {
                 $dataCreate['cart_id'] = $cart->id;
-                $dataCreate['product_size'] = $request->product_size;
                 $dataCreate['product_quantity'] = $request->product_quantity ?? 1;
                 $dataCreate['product_price'] = $product->price;
                 $dataCreate['product_id'] = $request->product_id;
                 $this->cartProduct->create($dataCreate);
             }
             return back()->with(['message' => 'Added!']);
-        } else {
-            return back()->with(['message' => 'Please choose size!']);
         }
-    }
+    
 
     /**
      * Display the specified resource.
@@ -213,11 +205,10 @@ class CartController extends Controller
         $cart = $this->cart->firtOrCreateBy(auth()->user()->id)->load('products');
         $productArr = $cart->products->pluck('product_id');
         $quantityArr = $cart->products->pluck('product_quantity');
-        $sizeArr = $cart->products->pluck('product_size');
         for ($i = 0; $i < count($productArr); $i++) {
             if (isset($productArr[$i])) {
-                $order->products()->attach($productArr[$i], ['quantity' => $quantityArr[$i], 'size' => $sizeArr[$i]]);
-                $minus = $this->productdetail->where([['product_id',$productArr[$i]],['size',$sizeArr[$i]]])->first();
+                $order->products()->attach($productArr[$i], ['quantity' => $quantityArr[$i]]);
+                $minus = $this->product->where('id', $productArr[$i])->first();
                 $minus->quantity = $minus->quantity - $quantityArr[$i];
                 $minus->save();
             }

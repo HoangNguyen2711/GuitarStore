@@ -14,14 +14,9 @@ class Product extends Model
         'name',
         'description',
         'sale',
-        'price'
+        'price',
+        'quantity'
     ];
-
-
-    public function details()
-    {
-        return $this->hasMany(ProductDetail::class);
-    }
 
 
     public function images()

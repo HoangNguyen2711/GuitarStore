@@ -7,7 +7,6 @@ use App\Http\Requests\Products\CreateProductRequest;
 use App\Http\Requests\Products\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductDetail;
 use Illuminate\Http\Request;
 
 
@@ -15,13 +14,12 @@ class ProductContronller extends Controller
 {
     protected $product;
     protected $category;
-    protected $productDetail;
+  
 
-    public function __construct(Product $product, Category $category, ProductDetail $productDetail)
+    public function __construct(Product $product, Category $category)
     {
         $this->product = $product;
         $this->category = $category;
-        $this->productDetail =  $productDetail;
 
     }
     /**
@@ -55,19 +53,13 @@ class ProductContronller extends Controller
      */
     public function store(CreateProductRequest $request)
     {
-        $dataCreate = $request->except('sizes');
-        $sizes = $request->sizes ? json_decode($request->sizes) : [];
+        $dataCreate = $request->all();
         $product = Product::create($dataCreate);
         $dataCreate['image'] = $this->product->saveImage($request);
 
         $product->images()->create(['url' => $dataCreate['image']]);
         $product->assignCategory($dataCreate['category_ids']);
-        $sizeArray = [];
-        foreach($sizes as $size)
-        {
-            $sizeArray[] = ['size' => $size->size, 'quantity' => $size->quantity, 'product_id' => $product->id];
-        }
-        $this->productDetail->insert($sizeArray);
+        
 
         return redirect()->route('products.index')->with(['message' => 'Created product successfully!']);
 
@@ -81,7 +73,7 @@ class ProductContronller extends Controller
      */
     public function show($id)
     {
-        $product =  $this->product->with(['details', 'categories'])->findOrFail($id);
+        $product =  $this->product->with('categories')->findOrFail($id);
 
 
         return view('admin.products.show', compact('product'));
@@ -96,7 +88,7 @@ class ProductContronller extends Controller
      */
     public function edit($id)
     {
-        $product =  $this->product->with(['details', 'categories'])->findOrFail($id);
+        $product =  $this->product->with('categories')->findOrFail($id);
 
         $categories = $this->category->get(['id','name']);
 
@@ -113,8 +105,7 @@ class ProductContronller extends Controller
      */
     public function update(UpdateProductRequest $request, $id)
     {
-        $dataUpdate = $request->except('sizes');
-        $sizes = $request->sizes ? json_decode($request->sizes) : [];
+        $dataUpdate = $request->all();
         $product = $this->product->findOrFail($id);
         $currentImage =  $product->images ? $product->images->first()->url : '';
         $dataUpdate['image'] = $this->product->updateImage($request, $currentImage);
@@ -123,13 +114,7 @@ class ProductContronller extends Controller
         $product->images()->delete();
         $product->images()->create(['url' => $dataUpdate['image']]);
         $product->assignCategory($dataUpdate['category_ids']);
-        $sizeArray = [];
-        foreach($sizes as $size)
-        {
-            $sizeArray[] = ['size' => $size->size, 'quantity' => $size->quantity, 'product_id' => $product->id];
-        }
-        $product->details()->delete();
-        $this->productDetail->insert($sizeArray);
+ 
 
         return redirect()->route('products.index')->with(['message' => 'Updated product successfully!']);
 

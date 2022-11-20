@@ -40,13 +40,20 @@
                 </div>
 
                 <div class="input-group input-group-static mb-4">
-                    <label>Sale</label>
-                    <input type="number" value="0" value="{{ old('sale') }}" name="sale" class="form-control">
-                    @error('sale')
+                    <label>Quantity</label>
+                    <input type="number" value="{{ old('quantity') }}" name="quantity" class="form-control">
+                    @error('quantity')
                         <span class="text-danger"> {{ $message }}</span>
                     @enderror
                 </div>
 
+                <div class="input-group input-group-static mb-4">
+                    <label>Sale</label>
+                    <input type="number" value="{{ old('sale') }}" name="sale" class="form-control">
+                    @error('sale')
+                        <span class="text-danger"> {{ $message }}</span>
+                    @enderror
+                </div>
 
 
                 <div class="form-group">
@@ -58,32 +65,6 @@
                     @error('description')
                         <span class="text-danger"> {{ $message }}</span>
                     @enderror
-                </div>
-                <input type="hidden" id="inputSize" name='sizes'>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddSizeModal">
-                    Add Details
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="AddSizeModal" tabindex="-1" aria-labelledby="AddSizeModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="AddSizeModalLabel">Inventory</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body" id="AddSizeModalBody">
-
-                            </div>
-                            <div class="mt-3">
-                                <button type="button" class="btn  btn-primary btn-add-size">Add to Iven</button>
-                                <button type="button" class="btn  btn-primary btn-more-size">More size</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
         </div>
         <div class="input-group input-group-static mb-4">

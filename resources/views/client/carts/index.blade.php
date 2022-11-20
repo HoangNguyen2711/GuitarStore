@@ -10,7 +10,6 @@
                     <tr>
                         <th>Products</th>
                         <th>Price</th>
-                        <th>Size</th>
                         <th>Sale</th>
                         <th>Quantity</th>
                         <th>Total</th>
@@ -37,7 +36,6 @@
                                     </p>
                                 @endif
                             </td>
-                            <td class="align-middle">{{ $item->product_size }}</td>
                             <td class="align-middle">{{ $item->product->sale }}</td>
                             <td class="align-middle">
                                 <div class="input-group quantity mx-auto" style="width: 100px;">
