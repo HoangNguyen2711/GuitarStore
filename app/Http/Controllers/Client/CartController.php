@@ -154,7 +154,11 @@ class CartController extends Controller
         $dataUpdate = $request->all();
         if ($dataUpdate['product_quantity'] < 1) {
             $cartProduct->delete();
-        } else {
+        }
+        // elseif($dataUpdate['product_quantity'] > $cartProduct->quantity) {
+
+        // }
+        else {
             $cartProduct->update($dataUpdate);
         }
 
