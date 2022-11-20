@@ -34,7 +34,7 @@ if(App::environment('production')){
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->middleware('verified')->name('client.home');
+
 Route::get('/shop', [HomeController::class, 'shop'])->name('client.shop');
 Route::post('/search', [HomeController::class, 'search'])->name('client.search');
 Route::get('policy', [HomeController::class, 'policy'])->name('client.policy');
@@ -52,7 +52,7 @@ Route::middleware('auth')->group(function(){
     Route::post('process-checkout', [CartController::class, 'processCheckout'])->name('client.checkout.proccess')->middleware('user.can-checkout');
     Route::get('list-orders', [OrderController::class, 'index'])->name('client.orders.index');
     Route::post('orders/cancel/{id}', [OrderController::class, 'cancel'])->name('client.orders.cancel');
-
+    Route::get('/', [HomeController::class, 'index'])->middleware('verified')->name('client.home');
 });
 
 
