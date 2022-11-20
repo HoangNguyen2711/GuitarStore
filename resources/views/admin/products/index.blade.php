@@ -18,6 +18,7 @@
                     <th>Image</th>
                     <th>Name</th>
                     <th>Price</th>
+                    <th>Quantity</th>
                     <th>Sale</th>
                     <th>Action</th>
                 </tr>
@@ -27,9 +28,8 @@
                         <td>{{ $item->id }}</td>
                         <td><img src="{{ $item->image_path }}" width="200px" height="200px" alt=""></td>
                         <td>{{ $item->name }}</td>
-
                         <td>{{ $item->price }}</td>
-
+                        <td>{{ $item->quantity }}</td>
                         <td>{{ $item->sale }}</td>
                         <td>
                             <a href="{{ route('products.edit', $item->id) }}" class="btn btn-warning">Edit</a>

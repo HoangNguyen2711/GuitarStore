@@ -19,7 +19,6 @@
                             <th>Email</th>
                             <th>Address</th>
                             <th>Product</th>
-                            <th>Size</th>
                             <th>Qty</th>
                             <th>Total</th>
                             <th>Note</th>
@@ -36,12 +35,9 @@
                                 @foreach ($item->orderdetails as $items)
                                 <tr>
                                     <td>{{ $items->product->name }}</td>
-                                    <td>{{ $items->size }}</td>
                                     <td>{{ $items->quantity }}</td>
                                 </tr>
                                 @endforeach
-                                
-                            
                                 <td>${{ $item->total }}</td>
                                 <td>{{ $item->note }}</td>
                                 <td>{{ $item->payment }}</td>
