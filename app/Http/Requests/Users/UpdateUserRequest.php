@@ -24,11 +24,11 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'phone' => 'required'.$this->user,
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|min:10'.$this->user,
             'gender' => 'required',
             'image' => 'nullable|image|mimes:png,jpg,PNG,jpec',
-            'password' => 'nullable|min:6',
+            'password' => 'nullable|string|min:5',
             'email'=> 'required'.$this->user,
 
         ];

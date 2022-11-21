@@ -4,7 +4,7 @@
     <!-- Page Header Start -->
     <div class="row" style="margin-left: 50px">
         <div class="d-inline-flex">
-            <p class="m-0"><a href="">Home</a></p>
+            <p class="m-0"><a href="">Shop</a></p>
             <p class="m-0 px-2">/</p>
             <p class="m-0">Shop Detail</p>
         </div>
@@ -43,7 +43,7 @@
                 </div>
                 <h3 class="font-weight-semi-bold mb-4">
                     @if ($product->sale > 0)
-                        ${{ $product->price - ($product->price * $product->sale) / 100 }}
+                       Price: ${{ $product->price - ($product->price * $product->sale) / 100 }}
                         <del>${{ $product->price }}</del>
                     @else
                         ${{ $product->price }}

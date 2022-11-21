@@ -16,6 +16,7 @@
                     <th>Image</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Verify</th>
                     <th>Phone</th>
                 </tr>
                 @foreach ($users as $item)
@@ -25,6 +26,7 @@
                                 width="100px" height="100px" alt=""></td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->email }}</td>
+                        <td>{{ $item->email_verified_at }}</td>
                         <td>{{ $item->phone }}</td>
                         <td>
                             <a href="{{ route('users.edit', $item->id) }}" class="btn btn-warning">Edit</a>
