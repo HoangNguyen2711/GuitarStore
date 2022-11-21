@@ -23,8 +23,7 @@
                                     style="width: 50px;">
                                 {{ $item->product->name }}</td>
                             <td class="align-middle">
-                                <p
-                                    style="{{ $item->product->sale ? 'text-decoration: line-through' : '' }};">
+                                <p style="{{ $item->product->sale ? 'text-decoration: line-through' : '' }};">
                                     ${{ $item->product->price }}
                                 </p>
 
@@ -42,17 +41,17 @@
                                     <div class="input-group-btn">
                                         <button class="btn btn-sm btn-primary btn-minus btn-update-quantity"
                                             data-action="{{ route('client.carts.update_product_quantity', $item->id) }}"
-                                            data-id="{{ $item->id }}">
+                                            data-id="{{ $item->id }}" <?php if ($item->product_quantity <= 1){ ?> disabled <?php   } ?>>
                                             <i class="fa fa-minus"></i>
                                         </button>
                                     </div>
                                     <input type="number" class="form-control form-control-sm bg-secondary text-center p-0"
                                         id="productQuantityInput-{{ $item->id }}" min="1"
-                                        value="{{ $item->product_quantity }}">
+                                        max="{{ $item->product->quantity }}" value="{{ $item->product_quantity }}">
                                     <div class="input-group-btn">
                                         <button class="btn btn-sm btn-primary btn-plus btn-update-quantity"
                                             data-action="{{ route('client.carts.update_product_quantity', $item->id) }}"
-                                            data-id="{{ $item->id }}">
+                                            data-id="{{ $item->id }}" <?php if ($item->product_quantity >= $item->product->quantity){ ?> disabled <?php   } ?>>
                                             <i class="fa fa-plus"></i>
                                         </button>
                                     </div>
@@ -127,7 +126,7 @@
 @section('script')
     <script>
         $(function() {
-            
+
             getTotalValue();
 
             function getTotalValue() {
@@ -156,41 +155,48 @@
 
             const TIME_TO_UPDATE = 1000;
 
-            $(document).on(
-                "click",
-                ".btn-update-quantity",
-                _.debounce(function(e) {
-                    let url = $(this).data("action");
-                    let id = $(this).data("id");
-                    let data = {
-                        product_quantity: $(`#productQuantityInput-${id}`).val(),
-                    };
-                    $.post(url, data, (res) => {
-                        let cartProductId = res.product_cart_id;
-                        let cart = res.cart;
-                        $("#productCountCart").text(cart.product_count);
-                        if (res.remove_product) {
-                            $(`#row-${cartProductId}`).remove();
-                        } else {
-                            $(`#cartProductPrice${cartProductId}`).html(
-                                `$${res.cart_product_price}`
-                            );
-                        }
-                        getTotalValue();
+            $(document).on("click", ".btn-update-quantity", (function(e) {
+                let url = $(this).data("action");
+                let id = $(this).data("id");
+                let data = {
+                    product_quantity: $(`#productQuantityInput-${id}`).val(),
+                };
+                $.post(url, data, (res) => {
+                    let cartProductId = res.product_cart_id;
+                    let cart = res.cart;
+                    $("#productCountCart").text(cart.product_count);
+                    if (res.remove_product) {
+                        $(`#row-${cartProductId}`).remove();
+                    } else {
+                        $(`#cartProductPrice${cartProductId}`).html(
+                            `$${res.cart_product_price}`
+                        );
+                    }
+                    getTotalValue();
 
-                        let total = $(".total-price").text(`$${cart.total_price}`);
-                        let couponPrice = $(".coupon-div")?.data("price") ?? 0;
-                        $(".total-price-all").text(`$${cart.total_price - couponPrice}`);
-                        Swal.fire({
-                            position: "center",
-                            icon: "success",
-                            title: "Success!",
-                            showConfirmButton: false,
-                            timer: 1000,
-                        });
+                    let total = $(".total-price").text(`$${cart.total_price}`);
+                    let couponPrice = $(".coupon-div")?.data("price") ?? 0;
+                    $(".total-price-all").text(`$${cart.total_price - couponPrice}`);
+
+                    let quantity = $(this).closest('.quantity').find('input').val();
+                    let min = $(this).closest('.quantity').find('input').attr('min');
+                    let max = $(this).closest('.quantity').find('input').attr('max');
+                    if (quantity == min || quantity == max) {
+                        console.log(2);
+                        $(this).prop('disabled', true);
+                    } else {
+                        $(this).closest('.quantity').find('.btn-update-quantity').prop('disabled', false);
+                    }
+
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Success!",
+                        showConfirmButton: false,
+                        timer: 1000,
                     });
-                }, TIME_TO_UPDATE)
-            );
+                });
+            }));
         });
     </script>
 @endsection
