@@ -13,34 +13,21 @@
                 <div>
                     <table class="table table-hover">
                         <tr>
+                            <th>Status</th>
                             <th>No</th>  
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
                             <th>Address</th>
-                            <th>Product</th>
-                            <th>Qty</th>
-                            <th>Total</th>
                             <th>Note</th>
                             <th>Payment</th>
-                            <th>Status</th>
+                            <th>Total</th>
+                            <th>Product</th>
+                            <th>Qty</th>
+                            
                         </tr>
                         @foreach ($orders as $item)
                             <tr>
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->customer_name }}</td>
-                                <td>{{ $item->customer_phone }}</td>
-                                <td>{{ $item->customer_email }}</td>
-                                <td>{{ $item->customer_address }}</td>
-                                @foreach ($item->orderdetails as $items)
-                                <tr>
-                                    <td>{{ $items->product->name }}</td>
-                                    <td>{{ $items->quantity }}</td>
-                                </tr>
-                                @endforeach
-                                <td>${{ $item->total }}</td>
-                                <td>{{ $item->note }}</td>
-                                <td>{{ $item->payment }}</td>
                                 <td>
                                     <div class="input-group input-group-static mb-4">
                                         <select name="status" class="form-control select-status"
@@ -53,6 +40,21 @@
                                         </select>
 
                                 </td>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->customer_name }}</td>
+                                <td>{{ $item->customer_phone }}</td>
+                                <td>{{ $item->customer_email }}</td>
+                                <td>{{ $item->customer_address }}</td>
+                                <td>{{ $item->note }}</td>
+                                <td>{{ $item->payment }}</td>
+                                <td>${{ $item->total }}</td>
+                                @foreach ($item->orderdetails as $items)
+                                <tr><td>+</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                    <td>{{ $items->product->name }}</td>
+                                    <td>{{ $items->quantity }}</td>
+                                
+                                @endforeach
+                                
                             </tr>
                         @endforeach
                     </table>

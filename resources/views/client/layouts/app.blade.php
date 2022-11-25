@@ -12,6 +12,7 @@
     <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=829680361573440&autoLogAppEvents=1"
         nonce="BDguU4ou"></script>
+    <meta property="fb:app_id" content="&#123;829680361573440&#125;" />
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 

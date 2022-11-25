@@ -22,6 +22,7 @@ trait HandleImageTrait
             Image::make($image)->resize(300, 300)->save($this->path . $name);
             return $name;
         }
+
     }
 
     public function updateImage($request, $currentImage)

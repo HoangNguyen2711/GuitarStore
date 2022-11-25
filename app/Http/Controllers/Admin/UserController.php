@@ -106,14 +106,16 @@ class UserController extends Controller
         {
             $dataCreate['password'] = Hash::make($request->password);
         }
-        $currentImage =  $user->images ? $user->images->first()->url : '';
+        
+        $currentImage =  $user->images->isNotEmpty() ? $user->images->first()->url : '';
+       
         $dataUpdate['image'] = $this->user->updateImage($request, $currentImage);
 
         $user->update($dataUpdate);
         $user->images()->delete();
         $user->images()->create(['url' => $dataUpdate['image']]);
         $user->roles()->sync($dataUpdate['role_ids'] ?? []);
-        return to_route('users.index')->with(['message' => 'Updated successessfully!']);
+        return to_route('users.index')->with(['message' => 'Updated successfully!']);
     }
 
 

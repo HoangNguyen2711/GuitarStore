@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Orders\CreateOrderRequest;
 use App\Http\Resources\Cart\CartResource;
+use App\Jobs\SendEmail;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\CartProduct;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Response;
@@ -24,8 +26,9 @@ class CartController extends Controller
     protected $coupon;
     protected $order;
     protected $user;
+    protected $orderDetail;
 
-    public function __construct(Product $product, Cart $cart, CartProduct $cartProduct, Coupon $coupon, Order $order, User $user)
+    public function __construct(Product $product, Cart $cart, CartProduct $cartProduct, Coupon $coupon, Order $order, User $user, OrderDetail $orderDetail)
     {
         $this->product = $product;
         $this->cart = $cart;
@@ -33,6 +36,7 @@ class CartController extends Controller
         $this->coupon = $coupon;
         $this->order = $order;
         $this->user = $user;
+        $this->orderDetail = $orderDetail;
     }
 
     /**
@@ -221,11 +225,22 @@ class CartController extends Controller
                 $coupon->users()->attach(auth()->user()->id, ['value' => $coupon->vale]);
             }
         }
-        $cart = $this->cart->firtOrCreateBy(auth()->user()->id);
+        
+        // $cart = $this->cart->firtOrCreateBy(auth()->user()->id)->load('products');
+
+        $info = $this->cartProduct->with('product')->where('cart_id', $cart->id)->get();
+        $users = $this->user->find(auth()->user()->id);
+        $message = [
+            'order'=> $order,
+            'cart' => $cart,
+        ];
+        SendEmail::dispatch($message, $users)->delay(now()->addMinute(1));
+
         $cart->products()->delete();
         Session::forget(['coupon_id', 'discount_amount_price', 'coupon_code']);
         $orders =  $this->order->getWithPaginateBy(auth()->user()->id);
-        // var_dump($cart);
+
+
         return view('client.orders.index', compact('orders'));
     }
 

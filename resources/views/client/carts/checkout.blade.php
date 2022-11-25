@@ -20,7 +20,7 @@
 
                         <div class="col-md-6 form-group">
                             <label>E-mail</label>
-                            <input class="form-control" name="customer_email" value="{{ old('customer_email') ?? $user->email}}"
+                            <input class="form-control" readonly name="customer_email" value="{{ old('customer_email') ?? $user->email}}"
                                 type="text" placeholder="example@email.com">
                             @error('customer_email')
                                 <span class="text-danger">{{ $message }}</span>

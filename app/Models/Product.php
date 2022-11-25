@@ -5,10 +5,11 @@ namespace App\Models;
 use App\Traits\HandleImageTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use willvincent\Rateable\Rateable;
 
 class Product extends Model
 {
-    use HasFactory, HandleImageTrait;
+    use HasFactory, HandleImageTrait, Rateable;
 
     protected $fillable = [
         'name',

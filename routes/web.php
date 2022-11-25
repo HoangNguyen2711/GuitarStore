@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function(){
     Route::post('update-quantity-product-in-cart/{cart_product_id}', [CartController::class, 'updateQuantityProduct'])->name('client.carts.update_product_quantity');
     Route::post('remove-product-in-cart/{cart_product_id}', [CartController::class, 'removeProductInCart'])->name('client.carts.remove_product');
     Route::post('apply-coupon', [CartController::class, 'applyCoupon'])->name('client.carts.apply_coupon');
-    Route::get('checkout', [CartController::class, 'checkout'])->name('client.checkout.index')->middleware('user.can-checkout');
+    Route::get('checkout', [CartController::class, 'checkout'])->middleware('verified')->name('client.checkout.index')->middleware('user.can-checkout');
     Route::post('vnpay', [CartController::class, 'vnpay'])->name('vnpay');
     Route::post('process-checkout', [CartController::class, 'processCheckout'])->name('client.checkout.proccess')->middleware('user.can-checkout');
     Route::get('list-orders', [OrderController::class, 'index'])->name('client.orders.index');

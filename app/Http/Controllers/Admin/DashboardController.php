@@ -10,7 +10,9 @@ use App\Models\Product;
 use App\Models\OrderDetail;
 use App\Models\Role;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -36,7 +38,14 @@ class DashboardController extends Controller
 
     public function index()
     {
-
+        // $range = Carbon::now()->subYear(5);
+        // $orderYear = DB::table('orders')
+        //             ->select(DB::raw('year(date_order) as getYear'), DB::raw('COUNT(*) as value'))
+        //             ->where('date_order', '>=', $range)
+        //             ->groupBy('getYear')
+        //             ->orderBy('getYear', 'ASC')
+        //             ->get();
+                    
         $userCount = $this->user->count();
         $categoryCount = $this->category->count();
         $orderCount = $this->order->count();
