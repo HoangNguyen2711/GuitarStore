@@ -38,27 +38,50 @@ class DashboardController extends Controller
 
     public function index()
     {
-        // $range = Carbon::now()->subYear(5);
-        // $orderYear = DB::table('orders')
-        //             ->select(DB::raw('year(date_order) as getYear'), DB::raw('COUNT(*) as value'))
-        //             ->where('date_order', '>=', $range)
-        //             ->groupBy('getYear')
-        //             ->orderBy('getYear', 'ASC')
-        //             ->get();
-                    
+        $currentDay = Carbon::now()->today();
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
+        $yesterday = Carbon::now()->subDay()->day;
+        $lastMonth = Carbon::now()->subMonth()->month;
+        $lastYear = Carbon::now()->subYear()->year;
+
         $userCount = $this->user->count();
-        // $currentMonth = Carbon::now()->month;
-        // $userCountMonth = $this->user->whereMonth('email_verified_at', $currentMonth)->count();
-        // $currentYear = Carbon::now()->year;
-        // $userCountYear = $this->user->whereYear('email_verified_at', $currentYear)->count();
-        // $lastMonth = Carbon::now()->subMonth()->month;
-        $categoryCount = $this->category->count();
+        $userCountMonth = $this->user->whereMonth('email_verified_at', $currentMonth)->count();
+        $userLastMonth = $this->user->whereMonth('email_verified_at', $lastMonth)->count();
+        $userToday = $this->user->WhereDay('email_verified_at',$currentDay)->count();
+        $userYesterday = $this->user->WhereDay('email_verified_at',$yesterday)->count();
+        $userCountYear = $this->user->whereYear('email_verified_at', $currentYear)->count();
+        $userLastYear = $this->user->whereYear('email_verified_at', $lastYear)->count();
+        
         $orderCount = $this->order->count();
+        $orderCountMonth = $this->order->whereMonth('created_at', $currentMonth)->count();
+        $orderLastMonth = $this->order->whereMonth('created_at', $lastMonth)->count();
+        $orderToday = $this->order->WhereDay('created_at',$currentDay)->count();
+        $orderYesterday = $this->order->WhereDay('created_at',$yesterday)->count();
+        $orderCountYear = $this->order->whereYear('created_at', $currentYear)->count();
+        $orderLastYear = $this->order->whereYear('created_at', $lastYear)->count();
+
         $productCount = $this->product->count();
-        $couponCount = $this->coupon->count();
-        $roleCount = $this->role->count();
-        $orderPending = $this->order->where('status','Pending')->latest('id')->paginate(5);
-        return view('admin.dashboard.index', compact('userCount', 'categoryCount', 'productCount', 'orderCount', 'couponCount', 'roleCount','orderPending'));
+        $productCountMonth = $this->product->whereMonth('created_at', $currentMonth)->count();
+        $productLastMonth = $this->product->whereMonth('created_at', $lastMonth)->count();
+        $productToday = $this->product->WhereDay('created_at',$currentDay)->count();
+        $productYesterday = $this->product->WhereDay('created_at',$yesterday)->count();
+        $productCountYear = $this->product->whereYear('created_at', $currentYear)->count();
+        $productLastYear = $this->product->whereYear('created_at', $lastYear)->count();
+
+        $moneyCount = $this->order->sum('total');
+        $moneyCountMonth = $this->order->whereMonth('created_at', $currentMonth)->sum('total');
+        $moneyLastMonth = $this->order->whereMonth('created_at', $lastMonth)->sum('total');
+        $moneyToday = $this->order->WhereDay('created_at',$currentDay)->sum('total');
+        $moneyYesterday = $this->order->WhereDay('created_at',$yesterday)->sum('total');
+        $moneyCountYear = $this->order->whereYear('created_at', $currentYear)->sum('total');
+        $moneyLastYear = $this->order->whereYear('created_at', $lastYear)->sum('total');
+
+        return view('admin.dashboard.index', compact('userCount', 'productCount', 'orderCount', 'moneyCount',
+        'userCountMonth','userLastMonth','userToday','userYesterday','userCountYear','userLastYear',
+        'orderCountMonth','orderLastMonth','orderToday','orderYesterday','orderCountYear','orderLastYear',
+        'productCountMonth','productLastMonth','productToday','productYesterday','productCountYear','productLastYear',
+        'moneyCountMonth','moneyLastMonth','moneyToday','moneyYesterday','moneyCountYear','moneyLastYear'));
     }
 }
 

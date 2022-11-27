@@ -123,6 +123,8 @@ Route::middleware('auth')->group(function(){
     // });
     Route::get('orders', [AdminOrderController::class, 'index'])->name('admin.orders.index')->middleware('permission:list-order');
     Route::post('update-status/{id}', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.update_status')->middleware('permission:update-order-status');
+
+    // Route::get('reviews', [OrderController::class, 'index'])->name('admin.orders.index')->middleware('permission:list-order');
 });
 
     Route::get('/email/verify', function () {

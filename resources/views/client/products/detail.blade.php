@@ -37,7 +37,7 @@
             </div>
 
             <div class="col-lg-7 pb-5">
-                <h3 class="font-weight-semi-bold">{{ $product->name }} <input class="rating" value="{{ $product->userAverageRating }}" data-size="sm" readonly>
+                <h3 class="font-weight-semi-bold">{{ $product->name }} <input class="rating" value="{{ $product->averageRating }}" data-size="sm" readonly>
                 </h3>
                 <div class="d-flex mb-3">
 

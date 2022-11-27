@@ -87,6 +87,17 @@
                 </a>
             </li>
             @endcan
+           
+            {{-- <li class="nav-item">
+                <a class="nav-link text-white {{ request()->routeIs('admin.reviews.*') ? 'bg-gradient-primary active' : '' }} "
+                    href="{{ route('admin.reviews.index') }}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">rate_review</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Reviews</span>
+                </a>
+            </li> --}}
+       
 
         </ul>
     </div>
