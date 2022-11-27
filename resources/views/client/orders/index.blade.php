@@ -52,10 +52,10 @@
                                                  
                             @if ($item->status == 'Success')
                             <td>
-                                @if ($items->product->ratings->count() > 0)
+                                @if ($items->review_flag)
                                 <button type="button" class="btn btn-primary modal-review" disabled>Reviewed</button>
                                 @else
-                                <button type="button" class="btn btn-primary modal-review" data-toggle="modal" data-target="#exampleModal" data-id={{ $items->product_id }}>Review</button>
+                                <button type="button" class="btn btn-primary modal-review" data-toggle="modal" data-target="#exampleModal" data-product-id={{ $items->product_id }} data-order-id={{ $items->order_id }}>Review</button>
                                 @endif
                             </td>
                             @else
@@ -89,7 +89,8 @@
             <div class="modal-body">
                 <form id="form-review" method="POST" action="{{ route('client.orders.review') }}">
                     @csrf
-                <input type="hidden" name="id">
+                <input type="hidden" name="product_id">
+                <input type="hidden" name="order_id">
                 <div class="form-group">
                   <label for="recipient-name" class="col-form-label">Rate:</label>
                   {{-- <input type="number" name="rate" class="form-control" id="recipient-name"> --}}
@@ -124,8 +125,10 @@
              });
 
              $('.modal-review').on('click', function (e) {
-                var id = $(this).data("id");
-            $(".modal .modal-body input[name='id']").val(id);
+                var productId = $(this).data("product-id");
+                var orderId = $(this).data("order-id");
+            $(".modal .modal-body input[name='product_id']").val(productId);
+            $(".modal .modal-body input[name='order_id']").val(orderId);
 
             $("#input-id").rating();
         })
