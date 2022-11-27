@@ -8,11 +8,7 @@
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=829680361573440&autoLogAppEvents=1"
-        nonce="BDguU4ou"></script>
-    <meta property="fb:app_id" content="&#123;829680361573440&#125;" />
+
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
@@ -29,6 +25,13 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('client/css/style.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/css/star-rating.min.css" media="all"
+        rel="stylesheet" type="text/css" />
+
+    <!-- with v4.1.0 Krajee SVG theme is used as default (and must be loaded as below) - include any of the other theme CSS files as mentioned below (and change the theme property of the plugin) -->
+    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.css"
+        media="all" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body>
@@ -191,6 +194,15 @@
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/star-rating.min.js"
+            type="text/javascript"></script>
+
+        <!-- with v4.1.0 Krajee SVG theme is used as default (and must be loaded as below) - include any of the other theme JS files as mentioned below (and change the theme property of the plugin) -->
+        <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.js"></script>
+
+        <!-- optionally if you need translation for your language then include locale file as mentioned below (replace LANG.js with your own locale file) -->
+        <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/locales/LANG.js"></script>
+
         <script src="{{ asset('client/lib/easing/easing.min.js') }}"></script>
         <script src="{{ asset('client/lib/owlcarousel/owl.carousel.min.js') }}"></script>
 
@@ -215,7 +227,7 @@
         <!-- Rasa chatbot -->
 
         <div data-initial-payload="hi" data-root-element-id="storybook-preview-wrapper"
-            data-websocket-url="http://localhost:5005/"  id="rasa-chat-widget">
+            data-websocket-url="http://localhost:5005/" id="rasa-chat-widget">
 
             <script src="https://unpkg.com/@rasahq/rasa-chat" type="application/javascript"></script>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Product;
 
 class OrderController extends Controller
 {
@@ -30,6 +31,18 @@ class OrderController extends Controller
         return redirect()->route('client.orders.index')->with(['message' => 'Cancelled!']);
     }
 
+    //Lê Bảo Cường
+    public function review(Request $request)
+        {
+            $request->validate([
+                'rate' => 'required|numeric|min:1|max:5',
+            ]);
+            
+            $product = Product::find($request->id);
+            $product->rate($request->rate, $request->comment);
+    
+            return redirect()->route('client.orders.index')->with(['message' => 'Review Added!']);
+        }
 
 }
 

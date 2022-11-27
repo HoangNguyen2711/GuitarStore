@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function(){
     Route::post('process-checkout', [CartController::class, 'processCheckout'])->name('client.checkout.proccess')->middleware('user.can-checkout');
     Route::get('list-orders', [OrderController::class, 'index'])->name('client.orders.index');
     Route::post('orders/cancel/{id}', [OrderController::class, 'cancel'])->name('client.orders.cancel');
+    Route::post('review', [OrderController::class, 'review'])->name('client.orders.review');
     Route::get('/', [HomeController::class, 'index'])->middleware('verified')->name('client.home');
 });
 

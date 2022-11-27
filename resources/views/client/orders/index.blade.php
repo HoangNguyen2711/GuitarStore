@@ -48,17 +48,13 @@
                            <td>{{ $item->payment }}</td>
                            <td>${{ $item->total }}</td>
                            @foreach ($item->orderdetails as $items)
-                           <tr>                            <td>
+                           <tr>                            
                             @if ($item->status == 'Success')
-                                <form action="{{ route('client.orders.cancel', $item->id) }}"
-                                    id="form-cancel{{ $item->id }}" method="post">
-                                    @csrf
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Review</button>
-                                </form>
+                            <td><button type="button" class="btn btn-primary modal-review" data-toggle="modal" data-target="#exampleModal" data-id={{ $items->product_id }}>Review</button></td>
                             @else
-                            +
+                            <td>+</td>
                            @endif
-                       </td><td></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                       <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
                                <td>{{ $items->product->name }}</td>
                                <td>{{ $items->quantity }}</td>
                            
@@ -73,30 +69,34 @@
          </div>
 
      </div>
+
      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+              <h5 class="modal-title" id="exampleModalLabel">New review</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <form>
+                <form id="form-review" method="POST" action="{{ route('client.orders.review') }}">
+                    @csrf
+                <input type="hidden" name="id">
                 <div class="form-group">
-                  <label for="recipient-name" class="col-form-label">Recipient:</label>
-                  <input type="text" class="form-control" id="recipient-name">
+                  <label for="recipient-name" class="col-form-label">Rate:</label>
+                  {{-- <input type="number" name="rate" class="form-control" id="recipient-name"> --}}
+                  <input id="input-id" name="rate" type="text" class="rating" data-size="lg" >
                 </div>
                 <div class="form-group">
-                  <label for="message-text" class="col-form-label">Message:</label>
-                  <textarea class="form-control" id="message-text"></textarea>
+                  <label for="message-text" class="col-form-label">Comment:</label>
+                  <textarea class="form-control" name="comment" id="message-text"></textarea>
                 </div>
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Send message</button>
+              <button type="submit" form="form-review" id="button-review" class="btn btn-primary">Submit</button>
             </div>
           </div>
         </div>
@@ -115,6 +115,13 @@
                      })
                      .catch();
              });
+
+             $('.modal-review').on('click', function (e) {
+                var id = $(this).data("id");
+            $(".modal .modal-body input[name='id']").val(id);
+
+            $("#input-id").rating();
+        })
 
          });
      </script>

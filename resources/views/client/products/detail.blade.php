@@ -37,7 +37,7 @@
             </div>
 
             <div class="col-lg-7 pb-5">
-                <h3 class="font-weight-semi-bold">{{ $product->name }}</h3>
+                <h3 class="font-weight-semi-bold">{{ $product->name }} {{ $product->average_rating }}</h3>
                 <div class="d-flex mb-3">
 
                 </div>
@@ -115,7 +115,22 @@
                     </div>
 
                     <div class="tab-pane fade" id="tab-pane-3">
-                        <div class="fb-comments" data-href="{{ Request::url() }}" data-width="800" data-numposts="5"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="mb-4">Reviews for {{$product->name}}</h4>
+                                <div class="media mb-4">
+                                    <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                    <div class="media-body">
+                                        <h6>AC<small> - <i>01 Jan 2045</i></small></h6>
+                                        <div class="text-primary mb-2">
+                                           {{ $product->userAverageRating }}
+                                        </div>
+                                        <p>{{ $product->comment }}</p>
+                                    </div> 
+                                </div>
+                            </div>
+ 
+                        </div>
                     </div>
 
                 </div>

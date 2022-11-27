@@ -30,7 +30,6 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class, 'order_details');
     }
-
     
     public function orderdetails()
     {
