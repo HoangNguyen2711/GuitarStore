@@ -47,6 +47,11 @@ class DashboardController extends Controller
         //             ->get();
                     
         $userCount = $this->user->count();
+        // $currentMonth = Carbon::now()->month;
+        // $userCountMonth = $this->user->whereMonth('email_verified_at', $currentMonth)->count();
+        // $currentYear = Carbon::now()->year;
+        // $userCountYear = $this->user->whereYear('email_verified_at', $currentYear)->count();
+        // $lastMonth = Carbon::now()->subMonth()->month;
         $categoryCount = $this->category->count();
         $orderCount = $this->order->count();
         $productCount = $this->product->count();

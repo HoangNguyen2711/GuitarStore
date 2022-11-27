@@ -37,13 +37,14 @@
             </div>
 
             <div class="col-lg-7 pb-5">
-                <h3 class="font-weight-semi-bold">{{ $product->name }} {{ $product->average_rating }}</h3>
+                <h3 class="font-weight-semi-bold">{{ $product->name }} <input class="rating" value="{{ $product->userAverageRating }}" data-size="sm" readonly>
+                </h3>
                 <div class="d-flex mb-3">
 
                 </div>
                 <h3 class="font-weight-semi-bold mb-4">
                     @if ($product->sale > 0)
-                       Price: ${{ $product->price - ($product->price * $product->sale) / 100 }}
+                        Price: ${{ $product->price - ($product->price * $product->sale) / 100 }}
                         <del>${{ $product->price }}</del>
                     @else
                         ${{ $product->price }}
@@ -53,12 +54,12 @@
 
                 <div class=" mb-4">
 
-                        <form>
-                            @if ($product->quantity > 0)
-                                <p class="text-dark font-weight-medium mb-0 mr-5">Quantity: {{ $product->quantity }}</p>
-                                {{-- <p class="pd-5">Quantity: {{ $size->quantity }}</p> --}}
-                                <div class="d-flex align-items-center mb-4 pt-2">
-                                    {{-- <div class="input-group quantity mr-3" style="width: 130px;">
+                    <form>
+                        @if ($product->quantity > 0)
+                            <p class="text-dark font-weight-medium mb-0 mr-5">Quantity: {{ $product->quantity }}</p>
+                            {{-- <p class="pd-5">Quantity: {{ $size->quantity }}</p> --}}
+                            <div class="d-flex align-items-center mb-4 pt-2">
+                                {{-- <div class="input-group quantity mr-3" style="width: 130px;">
                                         <div class="input-group-btn">
                                             <button class="btn btn-primary btn-minus">
                                                 <i class="fa fa-minus"></i>
@@ -71,13 +72,13 @@
                                             </button>
                                         </div>
                                     </div> --}}
-                                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
-                                        Cart</button>
-                                </div>
-                                @else
-                                <p>Sold out</p>
-                                @endif
-                        </form>
+                                <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
+                                    Cart</button>
+                            </div>
+                        @else
+                            <p>Sold out</p>
+                        @endif
+                    </form>
 
 
                 </div>
@@ -117,19 +118,23 @@
                     <div class="tab-pane fade" id="tab-pane-3">
                         <div class="row">
                             <div class="col-md-12">
-                                <h4 class="mb-4">Reviews for {{$product->name}}</h4>
-                                <div class="media mb-4">
-                                    <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                    <div class="media-body">
-                                        <h6>AC<small> - <i>01 Jan 2045</i></small></h6>
-                                        <div class="text-primary mb-2">
-                                           {{ $product->userAverageRating }}
+                                <h4 class="mb-4">Reviews for {{ $product->name }}</h4>
+                                @foreach ($product->ratings as $review)
+                                    <div class="media mb-4">
+                                        <img src="{{ $review->user->image_path }}" alt="Image"
+                                            class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                        <div class="media-body">
+                                            <h6>{{ $review->user->name }}<small> -
+                                                    <i>{{ $review->created_at->format('d-m-Y, H:i:s') }}</i></small></h6>
+                                            <div class="text-primary">
+                                                <input class="rating" value="{{ $review->rating }}" data-size="sm" readonly>
+                                                <p>Commented: {{ $review->comment }}</p>
+                                            </div>
                                         </div>
-                                        <p>{{ $product->comment }}</p>
-                                    </div> 
-                                </div>
+                                    </div>
+                                @endforeach
                             </div>
- 
+
                         </div>
                     </div>
 
@@ -138,4 +143,13 @@
         </div>
     </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $(function() {
+            $(".rating").rating();
+            $('.clear-rating').remove();
+        });
+    </script>
 @endsection

@@ -48,9 +48,16 @@
                            <td>{{ $item->payment }}</td>
                            <td>${{ $item->total }}</td>
                            @foreach ($item->orderdetails as $items)
-                           <tr>                            
+                           <tr>
+                                                 
                             @if ($item->status == 'Success')
-                            <td><button type="button" class="btn btn-primary modal-review" data-toggle="modal" data-target="#exampleModal" data-id={{ $items->product_id }}>Review</button></td>
+                            <td>
+                                @if ($items->product->ratings->count() > 0)
+                                <button type="button" class="btn btn-primary modal-review" disabled>Reviewed</button>
+                                @else
+                                <button type="button" class="btn btn-primary modal-review" data-toggle="modal" data-target="#exampleModal" data-id={{ $items->product_id }}>Review</button>
+                                @endif
+                            </td>
                             @else
                             <td>+</td>
                            @endif
