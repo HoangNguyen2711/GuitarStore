@@ -104,7 +104,7 @@
             </div>
             <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize">Today Money</p>
-                <h4 class="mb-0">{{ $moneyToday }}</h4>
+                <h4 class="mb-0">${{ $moneyToday }}</h4>
             </div>
         </div>
         <hr class="dark horizontal my-0">
@@ -135,7 +135,7 @@
                     <i class="material-icons opacity-10">person</i>
                 </div>
                 <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Monthly User</p>
+                    <p class="text-sm mb-0 text-capitalize">Users this month</p>
                     <h4 class="mb-0">{{ $userCountMonth }}</h4>
                 </div>
             </div>
@@ -166,7 +166,7 @@
                     <i class="material-icons opacity-10">reorder</i>
                 </div>
                 <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Monthly Orders</p>
+                    <p class="text-sm mb-0 text-capitalize">Orders this month</p>
                     <h4 class="mb-0">{{ $orderCountMonth }}</h4>
                 </div>
             </div>
@@ -196,7 +196,7 @@
                     <i class="material-icons opacity-10">inventory_2</i>
                 </div>
                 <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Monthly Products</p>
+                    <p class="text-sm mb-0 text-capitalize">Products this month</p>
                     <h4 class="mb-0">{{ $productCountMonth }}</h4>
                 </div>
             </div>
@@ -229,8 +229,8 @@
                     <i class="material-icons opacity-10">attach_money</i>
                 </div>
                 <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Monthly Money</p>
-                    <h4 class="mb-0">{{ $moneyCountMonth }}</h4>
+                    <p class="text-sm mb-0 text-capitalize">Money this month</p>
+                    <h4 class="mb-0">${{ $moneyCountMonth }}</h4>
                 </div>
             </div>
             <hr class="dark horizontal my-0">
@@ -261,7 +261,7 @@
                 <i class="material-icons opacity-10">person</i>
             </div>
             <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Yearly User</p>
+                <p class="text-sm mb-0 text-capitalize">Users this year</p>
                 <h4 class="mb-0">{{ $userCountYear }}</h4>
             </div>
         </div>
@@ -291,7 +291,7 @@
                 <i class="material-icons opacity-10">reorder</i>
             </div>
             <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Yearly Orders</p>
+                <p class="text-sm mb-0 text-capitalize">Orders this years</p>
                 <h4 class="mb-0">{{ $orderCountYear }}</h4>
             </div>
         </div>
@@ -321,7 +321,7 @@
                 <i class="material-icons opacity-10">inventory_2</i>
             </div>
             <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Yearly Products</p>
+                <p class="text-sm mb-0 text-capitalize">Products this years</p>
                 <h4 class="mb-0">{{ $productCountYear }}</h4>
             </div>
         </div>
@@ -351,8 +351,8 @@
                 <i class="material-icons opacity-10">attach_money</i>
             </div>
             <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Yearly Money</p>
-                <h4 class="mb-0">{{ $moneyCountYear }}</h4>
+                <p class="text-sm mb-0 text-capitalize">Money this year</p>
+                <h4 class="mb-0">${{ $moneyCountYear }}</h4>
             </div>
         </div>
         <hr class="dark horizontal my-0">

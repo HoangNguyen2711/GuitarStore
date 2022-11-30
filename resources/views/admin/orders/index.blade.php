@@ -40,14 +40,14 @@
                                         </select>
 
                                 </td>
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->customer_name }}</td>
-                                <td>{{ $item->customer_phone }}</td>
-                                <td>{{ $item->customer_email }}</td>
-                                <td>{{ $item->customer_address }}</td>
-                                <td>{{ $item->note }}</td>
-                                <td>{{ $item->payment }}</td>
-                                <td>${{ $item->total }}</td>
+                                <td class="text-wrap" >{{ $item->id }}</td>
+                                <td >{{ $item->customer_name }}</td>
+                                <td class="text-wrap" >{{ $item->customer_phone }}</td>
+                                <td class="text-wrap">{{ $item->customer_email }}</td>
+                                <td class="text-wrap">{{ $item->customer_address }}</td>
+                                <td class="text-wrap" >{{ $item->note }}</td>
+                                <td class="text-wrap" >{{ $item->payment }}</td>
+                                <td class="text-wrap" >${{ $item->total }}</td>
                                 @foreach ($item->orderdetails as $items)
                                 <tr><td>+</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <td>{{ $items->product->name }}</td>
