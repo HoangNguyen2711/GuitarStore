@@ -133,6 +133,8 @@
                 </div>
             </div>
         </form>
+        <a class="btn btn-primary m-3" href="{{ route('processTransaction') }}">Pay $1000</a>
+    
         {{-- <form action="{{ route('vnpay') }}" method="post">
             @csrf
             <div class="card-body">
