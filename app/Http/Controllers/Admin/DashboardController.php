@@ -77,11 +77,51 @@ class DashboardController extends Controller
         $moneyCountYear = $this->order->whereYear('created_at', $currentYear)->sum('total');
         $moneyLastYear = $this->order->whereYear('created_at', $lastYear)->sum('total');
 
+        $monthlyLabels = ['January', 'February', 'March', 'April', 'May', 'June','July','August','September','October','November','December'];
+        
+        $dataArr = [];
+
+        $janData = DB::select(DB::raw('select 
+        odd.product_id
+        ,sum(odd.quantity) as qty
+        ,pr.name
+        from orders od
+        join order_details odd on odd.order_id = od.id
+        join products pr on odd.product_id = pr.id
+        where od.created_at between "2022-1-1" and "2022-1-31" and odd.product_id = "8"
+        group by odd.product_id,pr.name'));
+        
+        if(count($janData) > 0){
+            array_push($dataArr,$janData[0]->qty);
+        }
+        else{
+            array_push($dataArr,0);
+        }
+
+        $febData = DB::select(DB::raw('select 
+        odd.product_id
+        ,sum(odd.quantity) as qty
+        ,pr.name
+        from orders od
+        join order_details odd on odd.order_id = od.id
+        join products pr on odd.product_id = pr.id
+        where od.created_at between "2022-2-1" and "2022-2-30" and odd.product_id = "8"
+        group by odd.product_id,pr.name'));
+
+        if(count($febData) > 0){
+            array_push($dataArr,$febData[0]->qty);
+        }
+        else{
+            array_push($dataArr,0);
+        }
+ 
+
         return view('admin.dashboard.index', compact('userCount', 'productCount', 'orderCount', 'moneyCount',
         'userCountMonth','userLastMonth','userToday','userYesterday','userCountYear','userLastYear',
         'orderCountMonth','orderLastMonth','orderToday','orderYesterday','orderCountYear','orderLastYear',
         'productCountMonth','productLastMonth','productToday','productYesterday','productCountYear','productLastYear',
-        'moneyCountMonth','moneyLastMonth','moneyToday','moneyYesterday','moneyCountYear','moneyLastYear'));
+        'moneyCountMonth','moneyLastMonth','moneyToday','moneyYesterday','moneyCountYear','moneyLastYear',
+        'monthlyLabels','dataArr'));
     }
 }
 
