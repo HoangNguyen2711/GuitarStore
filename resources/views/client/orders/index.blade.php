@@ -1,6 +1,6 @@
  <!-- Featured Start -->
  @extends('client.layouts.app')
- @section('title', 'Home')
+ @section('title', 'Order')
  @section('content')
      <div class="container-fluid pt-5">
          @if (session('message'))

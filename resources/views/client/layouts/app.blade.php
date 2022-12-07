@@ -72,9 +72,9 @@
                             <input type="text" name="keywords_submit" class="form-control"
                                 placeholder="Search for products">
                             <div class="input-group-append">
-                                <span class="input-group-text bg-transparent text-primary">
+                                <button class="input-group-text bg-transparent text-primary">
                                     <i class="fa fa-search" type="submit"></i>
-                                </span>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -140,18 +140,24 @@
                         </button>
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
-                                <a href="{{ route('client.home') }}" class="nav-item nav-link active">Home</a>
-                                <a href="{{ route('client.shop') }}" class="nav-item nav-link ">Shop</a>
-                                <a href="{{ route('client.orders.index') }}" class="nav-link">Order</a>
-                                <a href="{{ route('client.policy') }}" class="nav-link">Policy</a>
+                                <a href="{{ route('client.home') }}" class="nav-item nav-link {{ request()->routeIs('client.home') ? 'active' : '' }}">Home</a>
+                                <a href="{{ route('client.shop') }}" class="nav-item nav-link {{ request()->routeIs('client.shop') ? 'active' : '' }} ">Shop</a>
+                                <a href="{{ route('client.orders.index') }}" class="nav-link {{ request()->routeIs('client.orders.index') ? 'active' : '' }}">Order</a>
+                                <a href="{{ route('client.policy') }}" class="nav-link {{ request()->routeIs('client.policy') ? 'active' : '' }}">Policy</a>
                                 @can('list-order')
-                                    <a href="{{ route('dashboard') }}" class=" nav-link"> Management</a>
+                                    <a href="{{ route('dashboard') }}" class=" nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"> Management</a>
                                 @endcan
                             </div>
                             @if (auth()->check())
+                                @if (auth()->user()->email_verified_at == null)
                                 <div class="navbar-nav mr-auto py-0">
-                                    <h5>Hi! {{ auth()->user()->name }}</h5>
+                                    <h5>Hi! {{ auth()->user()->name }} - verify please!</h5>
                                 </div>
+                                @else
+                                <div class="navbar-nav mr-auto py-0">
+                                    <h5>Hi! {{ auth()->user()->name }} ✓</h5>
+                                </div>
+                                @endif
                             @else
                             @endif
                             <div class="navbar-nav ml-auto py-0">
@@ -257,7 +263,7 @@
           </script> --}}
             <!-- Rasa chatbot end -->
             <script src="{{ asset('admin/assets/base/base.js') }}"></script>
-
+          
 
             @yield('script')
     </x-guest-layout>

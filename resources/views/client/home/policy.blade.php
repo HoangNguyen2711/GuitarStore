@@ -1,16 +1,6 @@
 @extends('client.layouts.app')
 @section('title', 'Policy')
 @section('content')
-
-    <div class="row" style="margin-left: 50px">
-        <div class="d-inline-flex">
-            <p class="m-0"><a href="">Home</a></p>
-            <p class="m-0 px-2">/</p>
-            <p class="m-0">Policy</p>
-            </p>
-        </div>
-    </div>
-
     <div class="container-fluid pt-5">
         <div class="text-center mb-4">
             <h2 class="section-title px-5"><span class="px-2">Policy</span></h2>

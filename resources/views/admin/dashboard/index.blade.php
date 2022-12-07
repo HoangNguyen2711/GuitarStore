@@ -1,6 +1,10 @@
 @extends('admin.layouts.app')
 
 @section('content')
+
+<div class="col-12 mb-4"><canvas height="50" id="day-chart"></canvas></div>
+<div class="col-12 mb-4"><canvas height="50" id="month-chart"></canvas></div>
+
 {{-- Daily --}}
 <div class="col-xl-3 col-sm-6">
     <div class="card">
@@ -203,7 +207,7 @@
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
                 @if ($userLastMonth > 0)
-                    @if ($orderCountMonth - $userLastMonth >= 0)
+                    @if ($productCountMonth - $userLastMonth >= 0)
                     <p class="mb-0"><span class="text-success text-sm font-weight-bolder">
                             +{{ (($productCountMonth - $productLastMonth) / $productLastMonth) * 100 }}%</span> than last month
                     </p>
@@ -438,4 +442,57 @@
     </div>
 
     
+@endsection
+
+@section('script')
+
+<script>
+    const dc = document.getElementById('day-chart');
+  
+    new Chart(dc, {
+      type: 'bar',
+      data: {
+        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'],
+        datasets: [{
+          label: 'Daily Product Sold',
+          data: [12, 19, 3, 5, 2, 3, 10],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+
+<script>
+    const mc = document.getElementById('month-chart');
+    var monthlylabels = @json($monthlyLabels);
+    var data = @json($dataArr);
+   
+    
+    new Chart(mc, {
+      type: 'bar',
+      data: {
+        labels: monthlylabels,
+        datasets: [{
+          label: 'Monthly Product Sold',
+          data: data,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+
 @endsection

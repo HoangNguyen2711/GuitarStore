@@ -71,7 +71,7 @@ Auth::routes(['verify' => true]);
 
 Route::middleware('auth')->group(function(){
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('permission:view-dashboard');
 
       // Route::resource('roles', RoleController::class);
       Route::prefix('roles')->controller(RoleController::class)->name('roles.')->group(function(){

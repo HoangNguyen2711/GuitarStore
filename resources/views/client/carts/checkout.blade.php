@@ -2,7 +2,7 @@
 @section('title', 'Cart')
 @section('content')
     <div class="container-fluid pt-5">
-        <form class="row px-xl-5" method="POST" action=" {{ route('client.checkout.proccess') }}">
+        <form class="row px-xl-5" method="POST" id="checkout-form" action="{{ route('client.checkout.proccess') }}">
             @csrf
             <div class="col-lg-8">
                 <div class="mb-4">
@@ -10,8 +10,8 @@
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label>Name</label>
-                            <input class="form-control" value="{{ old('customer_name') ?? $user->name }}" name="customer_name"
-                                type="text" placeholder="John">
+                            <input class="form-control" value="{{ old('customer_name') ?? $user->name }}"
+                                name="customer_name" type="text" placeholder="John">
                             @error('customer_name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror ()
@@ -20,24 +20,27 @@
 
                         <div class="col-md-6 form-group">
                             <label>E-mail</label>
-                            <input class="form-control" readonly name="customer_email" value="{{ old('customer_email') ?? $user->email}}"
-                                type="text" placeholder="example@email.com">
+                            <input class="form-control" readonly name="customer_email"
+                                value="{{ old('customer_email') ?? $user->email }}" type="text"
+                                placeholder="example@email.com">
                             @error('customer_email')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror ()
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Mobile No</label>
-                            <input class="form-control" name="customer_phone" value="{{ old('customer_phone') ?? $user->phone}}"
-                                type="text" placeholder="+123 456 789">
+                            <input class="form-control" name="customer_phone"
+                                value="{{ old('customer_phone') ?? $user->phone }}" type="text"
+                                placeholder="+123 456 789">
                             @error('customer_phone')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror ()
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Address </label>
-                            <input class="form-control" name="customer_address" value="{{ old('customer_address') ?? $user->address}}"
-                                type="text" placeholder="123 Street">
+                            <input class="form-control" name="customer_address"
+                                value="{{ old('customer_address') ?? $user->address }}" type="text"
+                                placeholder="123 Street">
                             @error('customer_address')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror ()
@@ -119,10 +122,15 @@
                         <div class="form-group">
                             <div class="custom-control custom-radio">
 
-                                <input type="radio" id="money" class="custom-control-input" checked value="money"
+                                <input type="radio" id="cash" class="custom-control-input" checked value="cash"
                                     name="payment">
-                                <label for="money" class="custom-control-label">Cash On Delivery</label>
+                                <label for="cash" class="custom-control-label">Cash On Delivery</label>
                             </div>
+                            {{-- <div class="custom-control custom-radio">
+                                <input type="radio" id="paypal" class="custom-control-input"  value="paypal"
+                                    name="payment">
+                                <label for="paypal" class="custom-control-label">PayPal</label>
+                            </div> --}}
 
                         </div>
                     </div>
@@ -133,8 +141,7 @@
                 </div>
             </div>
         </form>
-        <a class="btn btn-primary m-3" href="{{ route('processTransaction') }}">Pay $1000</a>
-    
+
         {{-- <form action="{{ route('vnpay') }}" method="post">
             @csrf
             <div class="card-body">
@@ -166,6 +173,15 @@
                 $('.total-price-all').text(`$${total + shiping - couponPrice}`)
                 $('#total').val(total + shiping - couponPrice)
             }
+            $('input[name="payment"]').on('change', function(e) {
+                if ($(this).val() == 'paypal') {
+                    $('#checkout-form').attr('action', '{{ env('APP_URL') }}' + '/process-transaction');
+                    $('#checkout-form').attr('method', 'GET');
+                } else {
+                    $('#checkout-form').attr('action', '{{ env('APP_URL') }}' + '/process-checkout');
+                    $('#checkout-form').attr('method', 'POST');
+                }
+            })
 
         });
     </script>

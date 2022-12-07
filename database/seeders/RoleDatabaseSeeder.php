@@ -70,6 +70,8 @@ class RoleDatabaseSeeder extends Seeder
 
             ['name' => 'list-order', 'display_name' => 'List order', 'group' => 'Order'],
             ['name' => 'update-order-status', 'display_name' => 'Update order status', 'group' => 'Order'],
+
+            ['name' => 'view-dashboard', 'display_name' => 'View Dashboard', 'group' => 'Dashboard'],
         ];
 
         foreach($permissions as $item){

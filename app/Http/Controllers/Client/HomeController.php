@@ -96,10 +96,11 @@ class HomeController extends Controller
             }
         }
         else{
+            $sort_by = null;
             $products =  $this->product->latest('id')->paginate(8);
         }
 
-        return view('client.home.shop', compact('products'));
+        return view('client.home.shop', compact(['products', 'sort_by']));
         
     }
 

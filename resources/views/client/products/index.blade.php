@@ -1,5 +1,5 @@
 @extends('client.layouts.app')
-@section('title', 'Home')
+@section('title', 'Categories')
 @section('content')
     <div class="row ">
         <div class="d-inline-flex" style="margin-left:40px">
@@ -21,16 +21,25 @@
                     @csrf
                     <select name="sort" id="sort" class="form-control">
                         <option value="{{ Request::url() }}?">Sort</option>
-                        <option value="{{ Request::url() }}?sort_by=az">A-Z</option>
-                        <option value="{{ Request::url() }}?sort_by=za">Z-A</option>
-                        <option value="{{ Request::url() }}?sort_by=asc">Ascending Price</option>
-                        <option value="{{ Request::url() }}?sort_by=desc">Descending Price</option>
-                        <option value="{{ Request::url() }}?sort_by=sale">Hot Sale</option>
-                        <option value="{{ Request::url() }}?sort_by=500">0-$499</option>
-                        <option value="{{ Request::url() }}?sort_by=1k">$500-$999</option>
-                        <option value="{{ Request::url() }}?sort_by=1k5">$999-$1499</option>
-                        <option value="{{ Request::url() }}?sort_by=2k">$1500-$1999</option>
-                        <option value="{{ Request::url() }}?sort_by=2kmore">$2000 or more</option>
+                        <option value="{{ Request::url() }}?sort_by=az" {{ $sort_by == 'az' ? 'selected' : '' }}>A-Z
+                        </option>
+                        <option value="{{ Request::url() }}?sort_by=za" {{ $sort_by == 'za' ? 'selected' : '' }}>Z-A
+                        </option>
+                        <option value="{{ Request::url() }}?sort_by=asc" {{ $sort_by == 'asc' ? 'selected' : '' }}>Ascending
+                            Price</option>
+                        <option value="{{ Request::url() }}?sort_by=desc" {{ $sort_by == 'desc' ? 'selected' : '' }}>
+                            Descending Price</option>
+                        <option value="{{ Request::url() }}?sort_by=sale" {{ $sort_by == 'sale' ? 'selected' : '' }}>Hot
+                            Sale</option>
+                        <option value="{{ Request::url() }}?sort_by=500" {{ $sort_by == '500' ? 'selected' : '' }}>0-$499
+                        </option>
+                        <option value="{{ Request::url() }}?sort_by=1k" {{ $sort_by == '1k' ? 'selected' : '' }}>$500-$999</option>
+                        <option value="{{ Request::url() }}?sort_by=1k5" {{ $sort_by == '1k5' ? 'selected' : '' }}>
+                            $1000-$1499</option>
+                        <option value="{{ Request::url() }}?sort_by=2k" {{ $sort_by == '2k' ? 'selected' : '' }}>
+                            $1500-$1999</option>
+                        <option value="{{ Request::url() }}?sort_by=2kmore" {{ $sort_by == '2kmore' ? 'selected' : '' }}>
+                            $2000 or more</option>
                     </select>
                 </form>
             </div>

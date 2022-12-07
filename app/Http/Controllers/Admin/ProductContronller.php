@@ -130,7 +130,6 @@ class ProductContronller extends Controller
     {
         $product = $this->product->findOrFail($id);
         $product->delete();
-        $product->details()->delete();
         $product->images()->delete();
         $imageName =  $product->images->count() > 0 ? $product->images->first()->url : '';
         $this->product->deleteImage($imageName);
