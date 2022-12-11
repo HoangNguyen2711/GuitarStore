@@ -2,7 +2,7 @@
 @section('title', 'Create Category')
 @section('content')
     <div class="card">
-        <h1>Create category</h1>
+        <h1>Create Category</h1>
 
         <div>
             <form action="{{ route('categories.store') }}" method="post">

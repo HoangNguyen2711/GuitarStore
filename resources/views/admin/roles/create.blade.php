@@ -39,7 +39,6 @@
                         @foreach ($permissions as $groupName => $permission)
                             <div class="col-5">
                                 <h4>{{ $groupName }}</h4>
-
                                 <div>
                                     @foreach ($permission as $item)
                                         <div class="form-check">

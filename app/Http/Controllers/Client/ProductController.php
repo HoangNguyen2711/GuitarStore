@@ -3,22 +3,24 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\CategoryProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     protected $product;
-
+    protected $categoryProduct;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(Product $product)
+    public function __construct(Product $product, CategoryProduct $categoryProduct)
     {
         $this->product = $product;
+        $this->categoryProduct = $categoryProduct;
     }
 
     public function index(Request $request, $category_id)
@@ -95,8 +97,10 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = $this->product->findOrFail($id);
-
-        return view('client.products.detail', compact('product'));
+        $category_id = $this->categoryProduct->where('product_id', $id)->first();
+        $related = $this->categoryProduct->with(['product','category'])->where('category_id',$category_id->category_id)->whereNotIn('product_id',[$id])->get();
+        // dd($related);
+        return view('client.products.detail', compact('product','related'));
     }
 
 

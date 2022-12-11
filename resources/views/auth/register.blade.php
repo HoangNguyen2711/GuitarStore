@@ -1,5 +1,5 @@
 @extends('client.layouts.app')
-
+@section('title', 'Register')
 @section('content')
     <!-- Validation Errors -->
     <x-auth-validation-errors class="mb-4" :errors="$errors" />

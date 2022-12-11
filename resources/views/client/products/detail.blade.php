@@ -6,7 +6,7 @@
         <div class="d-inline-flex">
             <p class="m-0"><a href="">Shop</a></p>
             <p class="m-0 px-2">/</p>
-            <p class="m-0">Shop Detail</p>
+            <p class="m-0">Product details</p>
         </div>
     </div>
     <!-- Page Header End -->
@@ -111,7 +111,6 @@
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-pane-1">
-                        <h4 class="mb-3">Product Description</h4>
                         {!! $product->description !!}
                     </div>
 
@@ -141,7 +140,43 @@
                 </div>
             </div>
         </div>
-    </div>
+
+        <div class="container-fluid py-5">
+            <div class="text-center mb-4">
+                <h2 class="section-title px-5"><span class="px-2">You May Also Like</span></h2>
+            </div>
+            <div class="row px-xl-5">
+                <div class="col">
+                    <div class="owl-carousel related-carousel">
+                        @foreach ($related as $item)
+                        <div class="card product-item border-0">
+                            <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                <img class="img-fluid w-100" src="{{ $item->product->image_path }}" alt="">
+                            </div>
+                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                <h6 class="text-truncate mb-3">{{ $item->product->name }}</h6>
+                                <div class="d-flex justify-content-center">
+                                    @if ($item->product->sale > 0)
+                                    <h6>${{ $item->product->price - ($item->product->price * $item->product->sale) / 100 }}</h6>
+                                    <h6 class="text-muted ml-2"><del>${{ $item->product->price }}</del></h6>
+                                @else
+                                    <h6>${{ $item->product->price }}</h6>
+                                @endif
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between bg-light border">
+                                <a href="{{ route('client.products.show', $item->product->id) }}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                            </div>
+                        </div>
+                        @endforeach
+
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 @endsection
 

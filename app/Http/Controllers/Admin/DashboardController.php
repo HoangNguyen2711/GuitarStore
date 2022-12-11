@@ -38,6 +38,12 @@ class DashboardController extends Controller
 
     public function index()
     {
+
+        $data = DB::select('select pd.name, SUM(odd.quantity) 
+        from orders od join order_details odd on od.id = odd.order_id join products pd on odd.product_id = pd.id 
+        WHERE od.created_at LIKE "2022-12-09%" 
+        group by odd.product_id, pd.name');
+
         $currentDay = Carbon::now()->today();
         $currentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;
@@ -109,6 +115,7 @@ class DashboardController extends Controller
             'moneyCountYear',
             'moneyLastYear',
             'products',
+            'data',
         ));
     }
 
@@ -136,22 +143,34 @@ class DashboardController extends Controller
 
         $dataArr = [];
         $janData = $this->getQtyProductByMonth($id, '2022-1-1', '2022-1-31');
-        $febData = $this->getQtyProductByMonth($id, '2022-2-1', '2022-2-31');
+        $febData = $this->getQtyProductByMonth($id, '2022-2-1', '2022-2-28');
         $marData = $this->getQtyProductByMonth($id, '2022-3-1', '2022-3-31');
-        $aprData = $this->getQtyProductByMonth($id, '2022-4-1', '2022-4-31');
+        $aprData = $this->getQtyProductByMonth($id, '2022-4-1', '2022-4-30');
         $mayData = $this->getQtyProductByMonth($id, '2022-5-1', '2022-5-31');
-        $junData = $this->getQtyProductByMonth($id, '2022-6-1', '2022-6-31');
+        $junData = $this->getQtyProductByMonth($id, '2022-6-1', '2022-6-30');
         $julData = $this->getQtyProductByMonth($id, '2022-7-1', '2022-7-31');
         $augData = $this->getQtyProductByMonth($id, '2022-8-1', '2022-8-31');
-        $sepData = $this->getQtyProductByMonth($id, '2022-9-1', '2022-9-31');
+        $sepData = $this->getQtyProductByMonth($id, '2022-9-1', '2022-9-30');
         $octData = $this->getQtyProductByMonth($id, '2022-10-1', '2022-10-31');
-        $novData = $this->getQtyProductByMonth($id, '2022-11-1', '2022-11-31');
+        $novData = $this->getQtyProductByMonth($id, '2022-11-1', '2022-11-30');
         $decData = $this->getQtyProductByMonth($id, '2022-12-1', '2022-12-31');
         array_push($dataArr, $janData, $febData, $marData, $aprData, $mayData, $junData, $julData, $augData, $sepData, $sepData, $octData, $novData, $decData);
-
+        
         return response()->json([
             'success' => true,
             'dataArr' => $dataArr,
         ]);
+
     }
+
+    
+    public function dayChart(){
+        $data = DB::select('select pd.name, SUM(odd.quantity) 
+        from orders od join order_details odd on od.id = odd.order_id join products pd on odd.product_id = pd.id 
+        WHERE od.created_at LIKE "2022-12-09%" 
+        group by odd.product_id, pd.name');
+    }
+
+
+
 }

@@ -2,7 +2,7 @@
 @section('title', 'Edit Category ' . $category->name)
 @section('content')
     <div class="card">
-        <h1>Edit category</h1>
+        <h1>Edit Category</h1>
 
 
         <div>

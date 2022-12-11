@@ -21,8 +21,8 @@
                             Price</option>
                         <option value="{{ Request::url() }}?sort_by=desc" {{ $sort_by == 'desc' ? 'selected' : '' }}>
                             Descending Price</option>
-                        <option value="{{ Request::url() }}?sort_by=sale" {{ $sort_by == 'sale' ? 'selected' : '' }}>Hot
-                            Sale</option>
+                        {{-- <option value="{{ Request::url() }}?sort_by=sale" {{ $sort_by == 'sale' ? 'selected' : '' }}>Hot
+                            Sale</option> --}}
                         <option value="{{ Request::url() }}?sort_by=500" {{ $sort_by == '500' ? 'selected' : '' }}>0-$499
                         </option>
                         <option value="{{ Request::url() }}?sort_by=1k" {{ $sort_by == '1k' ? 'selected' : '' }}>$500-$999</option>

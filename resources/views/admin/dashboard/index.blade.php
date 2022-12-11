@@ -2,18 +2,25 @@
 
 @section('content')
 
-    <div class="col-12 mb-4"><canvas height="50" id="day-chart"></canvas></div>
+    {{-- <div class="col-12 mb-4"><canvas height="50" id="day-chart"></canvas></div> --}}
+    <div class="row d-flex justify-content-center">
+        <div class="col-4">
+            <canvas height="50" id="day-chart"></canvas>
+            <label class="ms-0 d-flex justify-content-center mt-3">Daily Product Sold</label>
+        </div>
+    </div>
     <div class="col-12 mb-4">
         <div class="input-group input-group-static mb-4">
-            <label class="ms-0">Sản Phẩm</label>
+            <label class="ms-0">Product</label>
             <select name="product_id" class="form-control">
                 @foreach ($products as $product)
-                    <option value="" selected disabled hidden>Chọn sản phẩm</option>
+                    <option value="" selected disabled hidden>Select product</option>
                     <option value="{{ $product->id }}">{{ $product->name }}</option>
                 @endforeach
             </select>
         </div>
         <canvas height="50" id="month-chart"></canvas>
+        {{-- <label class="ms-0 d-flex justify-content-center mt-3">Monthly Product Sold</label> --}}
     </div>
 
     {{-- Daily --}}
@@ -474,25 +481,27 @@
 @section('script')
     <script>
         const dc = document.getElementById('day-chart');
-
-        new Chart(dc, {
-            type: 'bar',
+        const dcChart = new Chart(dc, {
+            type: 'pie',
             data: {
-                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                labels: [
+                    'Red',
+                    'Blue',
+                    'Yellow'
+                ],
                 datasets: [{
-                    label: 'Daily Product Sold',
-                    data: [12, 19, 3, 5, 2, 3, 10],
-                    borderWidth: 1
+                    label: 'My First Dataset',
+                    data: {{ $data }},
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)'
+                    ],
+                    hoverOffset: 4
                 }]
             },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
         });
+        console.log({{ $data }});
     </script>
 
     <script>
@@ -504,7 +513,7 @@
                     'October', 'November', 'December'
                 ],
                 datasets: [{
-                    label: 'Monthly Product Sold',
+                    label: 'Monthly Sold',
                     data: [],
                     borderWidth: 1
                 }]
