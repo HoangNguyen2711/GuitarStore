@@ -5,6 +5,7 @@
     {{-- <div class="col-12 mb-4"><canvas height="50" id="day-chart"></canvas></div> --}}
     <div class="row d-flex justify-content-center">
         <div class="col-4">
+            <input type="text" id="datepicker">
             <canvas height="50" id="day-chart"></canvas>
             <label class="ms-0 d-flex justify-content-center mt-3">Daily Product Sold</label>
         </div>
@@ -480,18 +481,18 @@
 
 @section('script')
     <script>
+        $("#datepicker").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
         const dc = document.getElementById('day-chart');
         const dcChart = new Chart(dc, {
             type: 'pie',
             data: {
-                labels: [
-                    'Red',
-                    'Blue',
-                    'Yellow'
-                ],
+                labels: [],
                 datasets: [{
                     label: 'My First Dataset',
-                    data: {{ $data }},
+                    data: [],
                     backgroundColor: [
                         'rgb(255, 99, 132)',
                         'rgb(54, 162, 235)',
@@ -501,7 +502,25 @@
                 }]
             },
         });
-        console.log({{ $data }});
+
+        $("#datepicker").on('change', function(e) {
+            var date = $(this).val();
+            const GET_DAY_CHART_URL = '/dashboard/get-day-chart';
+            $.ajax({
+                url: GET_DAY_CHART_URL,
+                type: "GET",
+                data: {
+                    date: date,
+                },
+                dataType: 'json'
+            }).done(function(data) {
+                var qty = data.qty;
+                var label = data.label;
+                dcChart.data.datasets[0].data = qty;
+                dcChart.data.labels = label;
+                dcChart.update();
+            }).fail(function(response) {});
+        })
     </script>
 
     <script>

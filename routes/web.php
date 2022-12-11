@@ -73,7 +73,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('permission:view-dashboard');
     Route::get('/dashboard/get-product', [DashboardController::class, 'getProduct'])->name('getProduct')->middleware('permission:view-dashboard');
-
+    Route::get('/dashboard/get-day-chart', [DashboardController::class, 'dayChart'])->name('dayChart')->middleware('permission:view-dashboard');
     // Route::resource('roles', RoleController::class);
     Route::prefix('roles')->controller(RoleController::class)->name('roles.')->group(function () {
         Route::get('/', 'index')->name('index')->middleware('role:super-admin');
