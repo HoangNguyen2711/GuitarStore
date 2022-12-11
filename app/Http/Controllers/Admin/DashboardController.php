@@ -147,7 +147,7 @@ class DashboardController extends Controller
         $octData = $this->getQtyProductByMonth($id, '2022-10-1', '2022-10-31');
         $novData = $this->getQtyProductByMonth($id, '2022-11-1', '2022-11-30');
         $decData = $this->getQtyProductByMonth($id, '2022-12-1', '2022-12-31');
-        array_push($dataArr, $janData, $febData, $marData, $aprData, $mayData, $junData, $julData, $augData, $sepData, $sepData, $octData, $novData, $decData);
+        array_push($dataArr, $janData, $febData, $marData, $aprData, $mayData, $junData, $julData, $augData, $sepData, $octData, $novData, $decData);
         
         return response()->json([
             'success' => true,
