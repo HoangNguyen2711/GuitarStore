@@ -78,6 +78,21 @@ class DashboardController extends Controller
         $moneyLastYear = $this->order->whereYear('created_at', $lastYear)->sum('total');
 
         $products = $this->product->select('id', 'name')->get();
+        
+        $record = DB::select('select pd.name, SUM(odd.quantity) as qty
+        from orders od join order_details odd on od.id = odd.order_id join products pd on odd.product_id = pd.id 
+        WHERE od.created_at LIKE :date 
+        group by odd.product_id, pd.name', ['date' => $currentDay->toDateString(). '%']);
+
+        $label = [];
+        foreach ($record as $d) {
+            array_push($label, $d->name);
+        }
+
+        $qty = [];
+        foreach ($record as $d) {
+            array_push($qty, $d->qty);
+        }
 
         return view('admin.dashboard.index', compact(
             'userCount',
@@ -109,6 +124,9 @@ class DashboardController extends Controller
             'moneyCountYear',
             'moneyLastYear',
             'products',
+            'label',
+            'qty',
+            'currentDay'
         ));
     }
 
@@ -158,12 +176,13 @@ class DashboardController extends Controller
 
     
     public function dayChart(Request $request){
-        $date = $request->date;
+        $fromDate = $request->fromDate;
+        $toDate = $request->toDate;
 
         $record = DB::select('select pd.name, SUM(odd.quantity) as qty
         from orders od join order_details odd on od.id = odd.order_id join products pd on odd.product_id = pd.id 
-        WHERE od.created_at LIKE :date 
-        group by odd.product_id, pd.name', ['date' => $date . '%']);
+        WHERE od.created_at between :from_date and :to_date 
+        group by odd.product_id, pd.name', ['from_date' => $fromDate, 'to_date' => $toDate]);
 
         $label = [];
         foreach ($record as $d) {

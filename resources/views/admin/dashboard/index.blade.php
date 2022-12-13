@@ -5,7 +5,8 @@
     {{-- <div class="col-12 mb-4"><canvas height="50" id="day-chart"></canvas></div> --}}
     <div class="row d-flex justify-content-center">
         <div class="col-4">
-            <input type="text" id="datepicker">
+            <input type="text" id="datepicker" value="{{ $currentDay->toDateString() }}">
+            <input type="text" id="datepicker2" value="{{ $currentDay->toDateString() }}">
             <canvas height="50" id="day-chart"></canvas>
             <label class="ms-0 d-flex justify-content-center mt-3">Daily Product Sold</label>
         </div>
@@ -198,7 +199,7 @@
                 </div>
             </div>
             <hr class="dark horizontal my-0">
-            <div class="card-footer p-3">
+            {{-- <div class="card-footer p-3">
                 @if ($userLastMonth > 0)
                     @if ($orderCountMonth - $userLastMonth >= 0)
                         <p class="mb-0"><span class="text-success text-sm font-weight-bolder">
@@ -213,7 +214,7 @@
                     <p class="mb-0"><span class="text-success text-sm font-weight-bolder"></span>No data available</p>
                 @endif
 
-            </div>
+            </div> --}}
         </div>
     </div>
 
@@ -482,6 +483,10 @@
 @section('script')
     <script>
         $("#datepicker").datepicker({
+            dateFormat: 'yy-mm-dd',
+        });
+
+        $("#datepicker2").datepicker({
             dateFormat: 'yy-mm-dd'
         });
 
@@ -489,10 +494,10 @@
         const dcChart = new Chart(dc, {
             type: 'pie',
             data: {
-                labels: [],
+                labels: @json($label),
                 datasets: [{
                     label: 'My First Dataset',
-                    data: [],
+                    data: @json($qty),
                     backgroundColor: [
                         'rgb(255, 99, 132)',
                         'rgb(54, 162, 235)',
@@ -504,13 +509,36 @@
         });
 
         $("#datepicker").on('change', function(e) {
-            var date = $(this).val();
+            var fromDate = $(this).val();
+            var toDate = $('#datepicker2').val();
             const GET_DAY_CHART_URL = '/dashboard/get-day-chart';
             $.ajax({
                 url: GET_DAY_CHART_URL,
                 type: "GET",
                 data: {
-                    date: date,
+                    fromDate: fromDate,
+                    toDate: toDate,
+                },
+                dataType: 'json'
+            }).done(function(data) {
+                var qty = data.qty;
+                var label = data.label;
+                dcChart.data.datasets[0].data = qty;
+                dcChart.data.labels = label;
+                dcChart.update();
+            }).fail(function(response) {});
+        })
+
+        $("#datepicker2").on('change', function(e) {
+            var fromDate = $('#datepicker').val();
+            var toDate = $(this).val();
+            const GET_DAY_CHART_URL = '/dashboard/get-day-chart';
+            $.ajax({
+                url: GET_DAY_CHART_URL,
+                type: "GET",
+                data: {
+                    fromDate: fromDate,
+                    toDate: toDate,
                 },
                 dataType: 'json'
             }).done(function(data) {
