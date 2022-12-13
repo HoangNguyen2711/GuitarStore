@@ -10,7 +10,7 @@
             <label class="ms-0 d-flex justify-content-center mt-3">Daily Product Sold</label>
         </div>
     </div>
-    <div class="col-12 mb-4">
+    <div class="col-12 mb-5">
         <div class="input-group input-group-static mb-4">
             <label class="ms-0">Product</label>
             <select name="product_id" class="form-control">
@@ -20,7 +20,7 @@
                 @endforeach
             </select>
         </div>
-        <canvas height="50" id="month-chart"></canvas>
+        <canvas height="60" id="month-chart"></canvas>
         {{-- <label class="ms-0 d-flex justify-content-center mt-3">Monthly Product Sold</label> --}}
     </div>
 

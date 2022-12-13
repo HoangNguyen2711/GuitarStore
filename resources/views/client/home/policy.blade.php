@@ -26,8 +26,6 @@
             
 
             <div class="cs-address">
-                <p>Guitar Center</p>
-
                 <p>Vung Liem</p>
                 <p>Vinh Long City</p>
             </div>

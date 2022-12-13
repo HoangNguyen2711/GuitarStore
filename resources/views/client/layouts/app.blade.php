@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="{{ asset('client/img/favicon.ico') }}" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -232,38 +232,27 @@
 
         <!-- Rasa chatbot -->
 
-        <div data-initial-payload="hi" data-root-element-id="storybook-preview-wrapper"
-            data-websocket-url="http://localhost:5005/" id="rasa-chat-widget">
+        {{-- <div data-initial-payload="hi" data-root-element-id="storybook-preview-wrapper"
+            data-websocket-url="http://localhost:5005/" id="rasa-chat-widget"> --}}
+
+            <div
+            data-avatar-background="#9a6161"
+
+            data-initial-payload="hi"
+            data-primary="#9a6161"
+            data-primary-highlight="#9a6161"
+            data-root-element-id="storybook-preview-wrapper"
+            data-websocket-url="http://localhost:5005/"
+            id="rasa-chat-widget">
 
             <script src="https://unpkg.com/@rasahq/rasa-chat" type="application/javascript"></script>
 
 
-            {{-- <script>!(function () {
-            let e = document.createElement("script"),
-              t = document.head || document.getElementsByTagName("head")[0];
-            (e.src =
-              "https://cdn.jsdelivr.net/npm/rasa-webchat@1.x.x/lib/index.js"),
-              // Replace 1.x.x with the version that you want
-              (e.async = !0),
-              (e.onload = () => {
-                window.WebChat.default(
-                  {
-                    initPayload: 'hi',
-                    title: 'GuitarStore Support',
-                    showFullScreenButton: 'true',
-                    customData: { language: "vn" },
-                    socketUrl: "http://localhost:5005/",
-                    // add other props here
-                  },
-                  null
-                );
-              }),
-              t.insertBefore(e, t.firstChild);
-          })();
-          </script> --}}
+
+     
             <!-- Rasa chatbot end -->
             <script src="{{ asset('admin/assets/base/base.js') }}"></script>
-          
+
 
             @yield('script')
     </x-guest-layout>
