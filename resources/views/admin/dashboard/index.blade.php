@@ -5,8 +5,11 @@
     {{-- <div class="col-12 mb-4"><canvas height="50" id="day-chart"></canvas></div> --}}
     <div class="row d-flex justify-content-center">
         <div class="col-4">
-            <input type="text" id="datepicker" value="{{ $currentDay->toDateString() }}">
-            <input type="text" id="datepicker2" value="{{ $currentDay->toDateString() }}">
+            <div row class="d-flex justify-content-center">
+            From<input type="text" id="datepicker" value="{{ $currentDay->toDateString() }}">
+            To<input type="text" id="datepicker2" value="{{ $currentDay->toDateString() }}">
+
+                    </div>
             <canvas height="50" id="day-chart"></canvas>
             <label class="ms-0 d-flex justify-content-center mt-3">Daily Product Sold</label>
         </div>
@@ -199,7 +202,7 @@
                 </div>
             </div>
             <hr class="dark horizontal my-0">
-            {{-- <div class="card-footer p-3">
+            <div class="card-footer p-3">
                 @if ($userLastMonth > 0)
                     @if ($orderCountMonth - $userLastMonth >= 0)
                         <p class="mb-0"><span class="text-success text-sm font-weight-bolder">
@@ -214,7 +217,7 @@
                     <p class="mb-0"><span class="text-success text-sm font-weight-bolder"></span>No data available</p>
                 @endif
 
-            </div> --}}
+            </div>
         </div>
     </div>
 
@@ -501,7 +504,7 @@
                     backgroundColor: [
                         'rgb(255, 99, 132)',
                         'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)'
+                        'rgb(255, 205, 86)',
                     ],
                     hoverOffset: 4
                 }]
